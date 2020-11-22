@@ -23,7 +23,7 @@ if($password!=$password2) {
     //connecting to database
     $servername = "localhost:3306";
     $username = "root";
-    $pwd = "";
+    $pwd = "root";
     $dbname = "portal";
     
     // Create connection

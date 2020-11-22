@@ -9,7 +9,7 @@
     } else {
         $servername = "localhost:3306";
         $username = "root";
-        $pwd = "";
+        $pwd = "root";
         $dbname = "portal";
         
         // Create connection
