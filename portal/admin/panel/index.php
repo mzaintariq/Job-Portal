@@ -36,6 +36,7 @@
     <script src="https://kit.fontawesome.com/13ad6678d8.js"></script>
 
     <script src="referralCode.js"></script>
+    <style>.ptr{cursor:pointer;}</style>
     <title>Employer Panel</title>
 </head>
 
@@ -48,16 +49,33 @@
     <!-- <p>Creators: Rohan, Zain, and Zahab from LUMS</p> -->
     </div>
 
-    <div class="btn-group btn-group-lg mt-3">
-    <button type="button" onClick="window.location='logout.php';" class="btn btn-primary">Logout</button>
-    <button type="button" onClick="generateReferralCode()" class="btn btn-primary">Generate Referral Code</button>
-    
-    <!-- <button type="button" onClick="window.location='./check.php';" class="btn btn-primary">Check</button> -->
-    </div> 
-    <div id="refDiv" style='display:none;'>
-        <label for="referralCode">Referral Code:</label>
-        <input name="referralCode" class='form-control' id='referralCode'>
+
+
+    <div class="card-columns">
+        <div class="card bg-primary ptr" onClick="generateReferralCode()">
+            <div class="card-body text-center">
+            <p class="card-text text-light">Generate Referral Code</p>
+            <div id="refDiv" style='display:none;'>
+                <label for="referralCode">Referral Code:</label>
+                <input name="referralCode" class='form-control' id='referralCode'>
+            </div>
+            </div>
+        </div>
+        <div class="card bg-warning ptr" onClick="window.location='viewemployers.php';">
+            <div class="card-body text-center">
+            <p class="card-text">View All Employers</p>
+            </div>
+        </div>
+        <div class="card bg-danger ptr" onClick="window.location='logout.php';">
+            <div class="card-body text-center">
+            <p class="card-text text-light">Logout</p>
+            </div>
+        </div>
+        
     </div>
+
+
+    
 </div>
 
 </body>

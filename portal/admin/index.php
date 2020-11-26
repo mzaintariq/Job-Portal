@@ -71,5 +71,8 @@
     
 </form>
 
+    <div style='width:100%;text-align:center;'>
+        <a href='login.php'>Login Instead</a>
+    </div>
 </div>
 </body>

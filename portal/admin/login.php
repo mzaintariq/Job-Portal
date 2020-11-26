@@ -170,6 +170,10 @@
     
 </form>
 
+    <div style='width:100%;text-align:center;'>
+        <a href='index.php'>Sign Up Instead</a>
+    </div>
+
 </div>
 </body>
 
