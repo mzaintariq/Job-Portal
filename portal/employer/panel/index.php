@@ -7,16 +7,13 @@
         echo "You have no access here. Please leave.";
         die();
     } else {
-        $servername = "localhost:3306";
-        $username = "root";
-        $pwd = "root";
-        $dbname = "portal";
+        require('../../connect.php');
         
         // Create connection
         $conn = new mysqli($servername, $username, $pwd, $dbname);
         // Check connection
         if ($conn->connect_error) {
-            header('Location:login.php?connectionfailed=1');
+            header('Location:../login.php?connectionfailed=1');
             die("Connection failed: " . $conn->connect_error);
         } else {
             $sql = "SELECT `firstname`,`gender` FROM `employers` WHERE `emp_id`=" . $_SESSION['user'] . " LIMIT 0,1";

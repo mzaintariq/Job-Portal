@@ -7,10 +7,7 @@
         echo "You have no access here. Please leave.";
         die();
     } else {
-        $servername = "localhost:3306";
-        $username = "root";
-        $pwd = "root";
-        $dbname = "portal";
+        require('../../../connect.php');
         
         // Create connection
         $conn = new mysqli($servername, $username, $pwd, $dbname);
@@ -62,6 +59,7 @@
 
 <body>
 <div class='container'>
+<p class='mt-3'>Welcome <?php echo $prename . ' ' . $name; ?></p>
 <h1 class="mb-4">
     Post a Job
 </h1>
