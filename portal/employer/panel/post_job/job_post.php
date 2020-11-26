@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 
 $emp_id=$_POST['emp_id'];
 // $emp_id=21;
