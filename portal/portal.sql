@@ -1,14 +1,21 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.5
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Nov 25, 2020 at 04:19 PM
--- Server version: 5.7.30
--- PHP Version: 7.4.9
+-- Host: 127.0.0.1:3306
+-- Generation Time: Nov 26, 2020 at 06:37 PM
+-- Server version: 5.7.31
+-- PHP Version: 7.3.21
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `portal`
@@ -20,13 +27,16 @@ SET time_zone = "+00:00";
 -- Table structure for table `admins`
 --
 
-CREATE TABLE `admins` (
-  `admin_id` int(255) NOT NULL,
+DROP TABLE IF EXISTS `admins`;
+CREATE TABLE IF NOT EXISTS `admins` (
+  `admin_id` int(255) NOT NULL AUTO_INCREMENT,
   `firstname` varchar(100) NOT NULL,
   `lastname` varchar(100) NOT NULL,
   `age` int(3) NOT NULL,
   `email` varchar(200) NOT NULL,
-  `password` varchar(10000) NOT NULL
+  `password` varchar(10000) NOT NULL,
+  `referral_code` varchar(1000) DEFAULT NULL,
+  PRIMARY KEY (`admin_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -35,12 +45,16 @@ CREATE TABLE `admins` (
 -- Table structure for table `applications`
 --
 
-CREATE TABLE `applications` (
-  `app_id` int(255) NOT NULL,
+DROP TABLE IF EXISTS `applications`;
+CREATE TABLE IF NOT EXISTS `applications` (
+  `app_id` int(255) NOT NULL AUTO_INCREMENT,
   `js_id` int(255) NOT NULL,
   `job_id` int(255) NOT NULL,
   `statement` varchar(20000) NOT NULL,
-  `answers` varchar(20000) DEFAULT NULL
+  `answers` varchar(20000) DEFAULT NULL,
+  PRIMARY KEY (`app_id`),
+  KEY `job_id` (`job_id`),
+  KEY `js_id` (`js_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -49,8 +63,9 @@ CREATE TABLE `applications` (
 -- Table structure for table `employers`
 --
 
-CREATE TABLE `employers` (
-  `emp_id` int(255) NOT NULL,
+DROP TABLE IF EXISTS `employers`;
+CREATE TABLE IF NOT EXISTS `employers` (
+  `emp_id` int(255) NOT NULL AUTO_INCREMENT,
   `firstname` varchar(100) NOT NULL,
   `lastname` varchar(100) NOT NULL,
   `age` int(3) NOT NULL,
@@ -60,8 +75,9 @@ CREATE TABLE `employers` (
   `companytype` varchar(50) NOT NULL,
   `address` varchar(500) NOT NULL,
   `password` varchar(150) NOT NULL,
-  `blocked` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `blocked` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`emp_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `employers`
@@ -69,8 +85,7 @@ CREATE TABLE `employers` (
 
 INSERT INTO `employers` (`emp_id`, `firstname`, `lastname`, `age`, `gender`, `email`, `companyname`, `companytype`, `address`, `password`, `blocked`) VALUES
 (19, 'Rohan', 'Hussain', 21, 0, 'rohanhussain1@yahoo.com', 'LUMS', 'Technology', 'Street 12, House 3, Sahowarwi', '250deaf1cdd5387ba66bfc7d8f84824e41becd445afae48a0d01d32ddf2472e8', 0),
-(20, 'Alishba', 'Azam', 21, 1, 'alishbazam24@gmail.com', 'FMH', 'Healthcare', 'Street 12, House 3, Sahowarwi', '250deaf1cdd5387ba66bfc7d8f84824e41becd445afae48a0d01d32ddf2472e8', 0),
-(21, 'Zain', 'Tariq', 22, 0, 'mzaintariq@gmail.com', 'LUMS', 'Education', '317-B, DHA Phase XII (EME), Multan Road', '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', 0);
+(20, 'Alishba', 'Azam', 21, 1, 'alishbazam24@gmail.com', 'FMH', 'Healthcare', 'Street 12, House 3, Sahowarwi', '250deaf1cdd5387ba66bfc7d8f84824e41becd445afae48a0d01d32ddf2472e8', 0);
 
 -- --------------------------------------------------------
 
@@ -78,12 +93,17 @@ INSERT INTO `employers` (`emp_id`, `firstname`, `lastname`, `age`, `gender`, `em
 -- Table structure for table `employments`
 --
 
-CREATE TABLE `employments` (
-  `employment_id` int(255) NOT NULL,
+DROP TABLE IF EXISTS `employments`;
+CREATE TABLE IF NOT EXISTS `employments` (
+  `employment_id` int(255) NOT NULL AUTO_INCREMENT,
   `js_id` int(255) NOT NULL,
   `emp_id` int(255) NOT NULL,
   `job_id` int(255) NOT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1'
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`employment_id`),
+  KEY `emp_id` (`emp_id`),
+  KEY `job_id` (`job_id`),
+  KEY `js_id` (`js_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -92,8 +112,9 @@ CREATE TABLE `employments` (
 -- Table structure for table `jobs`
 --
 
-CREATE TABLE `jobs` (
-  `job_id` int(255) NOT NULL,
+DROP TABLE IF EXISTS `jobs`;
+CREATE TABLE IF NOT EXISTS `jobs` (
+  `job_id` int(255) NOT NULL AUTO_INCREMENT,
   `emp_id` int(255) NOT NULL,
   `title` varchar(1000) NOT NULL,
   `description` varchar(20000) NOT NULL,
@@ -107,15 +128,11 @@ CREATE TABLE `jobs` (
   `questions` varchar(20000) DEFAULT NULL,
   `blocked` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Default value is 0, meaning this job is not blocked by an admin',
   `js_id` int(255) DEFAULT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'Default status is 1, meaning that the job is active. Employer can deactivate this job and this field will change to 0.'
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT 'Default status is 1, meaning that the job is active. Employer can deactivate this job and this field will change to 0.',
+  PRIMARY KEY (`job_id`),
+  KEY `emp_id` (`emp_id`),
+  KEY `js_id` (`js_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `jobs`
---
-
-INSERT INTO `jobs` (`job_id`, `emp_id`, `title`, `description`, `type`, `mode`, `location`, `salary`, `min_age_req`, `min_edu_req`, `min_exp_req`, `questions`, `blocked`, `js_id`, `status`) VALUES
-(21, 21, 'Job', 'This is a Job', 'ft', 'offline', 'Lahore', 50000, 22, 13, 2, '1. Why do you want this job?\r\n2. What experience do you have?', 0, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -123,8 +140,9 @@ INSERT INTO `jobs` (`job_id`, `emp_id`, `title`, `description`, `type`, `mode`, 
 -- Table structure for table `jobseekers`
 --
 
-CREATE TABLE `jobseekers` (
-  `js_id` int(255) NOT NULL,
+DROP TABLE IF EXISTS `jobseekers`;
+CREATE TABLE IF NOT EXISTS `jobseekers` (
+  `js_id` int(255) NOT NULL AUTO_INCREMENT,
   `firstname` varchar(100) NOT NULL,
   `lastname` varchar(100) NOT NULL,
   `age` int(3) NOT NULL,
@@ -138,8 +156,9 @@ CREATE TABLE `jobseekers` (
   `education_months` int(100) DEFAULT '0',
   `education_details` varchar(20000) DEFAULT NULL,
   `employment_status` tinyint(1) NOT NULL DEFAULT '0',
-  `blocked` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `blocked` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`js_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `jobseekers`
@@ -155,14 +174,27 @@ INSERT INTO `jobseekers` (`js_id`, `firstname`, `lastname`, `age`, `gender`, `em
 -- Table structure for table `login_attempts_log`
 --
 
-CREATE TABLE `login_attempts_log` (
-  `attempt_id` int(255) NOT NULL,
+DROP TABLE IF EXISTS `login_attempts_log`;
+CREATE TABLE IF NOT EXISTS `login_attempts_log` (
+  `attempt_id` int(255) NOT NULL AUTO_INCREMENT,
   `js_id` int(255) DEFAULT NULL,
   `emp_id` int(255) DEFAULT NULL,
   `admin_id` int(255) DEFAULT NULL,
   `last_attempt` timestamp NULL DEFAULT NULL,
-  `attempt_no` int(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `attempt_no` int(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`attempt_id`),
+  KEY `admin_id` (`admin_id`),
+  KEY `emp_id` (`emp_id`),
+  KEY `js_id` (`js_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `login_attempts_log`
+--
+
+INSERT INTO `login_attempts_log` (`attempt_id`, `js_id`, `emp_id`, `admin_id`, `last_attempt`, `attempt_no`) VALUES
+(1, NULL, 19, NULL, '2020-11-25 15:52:20', 4),
+(2, 21, NULL, NULL, '2020-11-26 17:59:53', 4);
 
 -- --------------------------------------------------------
 
@@ -170,131 +202,19 @@ CREATE TABLE `login_attempts_log` (
 -- Table structure for table `notifications`
 --
 
-CREATE TABLE `notifications` (
-  `notif_id` int(255) NOT NULL,
+DROP TABLE IF EXISTS `notifications`;
+CREATE TABLE IF NOT EXISTS `notifications` (
+  `notif_id` int(255) NOT NULL AUTO_INCREMENT,
   `js_id` int(255) DEFAULT NULL,
   `emp_id` int(255) DEFAULT NULL,
   `app_id` int(255) DEFAULT NULL,
   `type` varchar(255) NOT NULL,
-  `content` varchar(20000) NOT NULL
+  `content` varchar(20000) NOT NULL,
+  PRIMARY KEY (`notif_id`),
+  KEY `emp_id` (`emp_id`),
+  KEY `js_id` (`js_id`),
+  KEY `app_id` (`app_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `admins`
---
-ALTER TABLE `admins`
-  ADD PRIMARY KEY (`admin_id`);
-
---
--- Indexes for table `applications`
---
-ALTER TABLE `applications`
-  ADD PRIMARY KEY (`app_id`),
-  ADD KEY `job_id` (`job_id`),
-  ADD KEY `js_id` (`js_id`);
-
---
--- Indexes for table `employers`
---
-ALTER TABLE `employers`
-  ADD PRIMARY KEY (`emp_id`);
-
---
--- Indexes for table `employments`
---
-ALTER TABLE `employments`
-  ADD PRIMARY KEY (`employment_id`),
-  ADD KEY `emp_id` (`emp_id`),
-  ADD KEY `job_id` (`job_id`),
-  ADD KEY `js_id` (`js_id`);
-
---
--- Indexes for table `jobs`
---
-ALTER TABLE `jobs`
-  ADD PRIMARY KEY (`job_id`),
-  ADD KEY `emp_id` (`emp_id`),
-  ADD KEY `js_id` (`js_id`);
-
---
--- Indexes for table `jobseekers`
---
-ALTER TABLE `jobseekers`
-  ADD PRIMARY KEY (`js_id`);
-
---
--- Indexes for table `login_attempts_log`
---
-ALTER TABLE `login_attempts_log`
-  ADD PRIMARY KEY (`attempt_id`),
-  ADD KEY `admin_id` (`admin_id`),
-  ADD KEY `emp_id` (`emp_id`),
-  ADD KEY `js_id` (`js_id`);
-
---
--- Indexes for table `notifications`
---
-ALTER TABLE `notifications`
-  ADD PRIMARY KEY (`notif_id`),
-  ADD KEY `emp_id` (`emp_id`),
-  ADD KEY `js_id` (`js_id`),
-  ADD KEY `app_id` (`app_id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `admins`
---
-ALTER TABLE `admins`
-  MODIFY `admin_id` int(255) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `applications`
---
-ALTER TABLE `applications`
-  MODIFY `app_id` int(255) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `employers`
---
-ALTER TABLE `employers`
-  MODIFY `emp_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
-
---
--- AUTO_INCREMENT for table `employments`
---
-ALTER TABLE `employments`
-  MODIFY `employment_id` int(255) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `jobs`
---
-ALTER TABLE `jobs`
-  MODIFY `job_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
-
---
--- AUTO_INCREMENT for table `jobseekers`
---
-ALTER TABLE `jobseekers`
-  MODIFY `js_id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
-
---
--- AUTO_INCREMENT for table `login_attempts_log`
---
-ALTER TABLE `login_attempts_log`
-  MODIFY `attempt_id` int(255) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `notifications`
---
-ALTER TABLE `notifications`
-  MODIFY `notif_id` int(255) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
@@ -337,3 +257,8 @@ ALTER TABLE `notifications`
   ADD CONSTRAINT `notifications_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `employers` (`emp_id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `notifications_ibfk_2` FOREIGN KEY (`js_id`) REFERENCES `jobseekers` (`js_id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `notifications_ibfk_3` FOREIGN KEY (`app_id`) REFERENCES `applications` (`app_id`) ON UPDATE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

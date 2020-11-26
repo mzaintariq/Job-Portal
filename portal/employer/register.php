@@ -58,13 +58,12 @@ if($password!=$password2) {
               if(mysqli_num_rows($result)==1) {
                   $row=mysqli_fetch_assoc($result);
                   $userid=$row['emp_id'];
-                  setcookie("user", $userid, time() + (86400 * 30), "/");
                   session_start();
                   $_SESSION['user']=$userid;
                   $_SESSION['type']='employer';
               }
               
-              header("Location:./employerpanel/index.php?success=true");
+              header("Location:./panel/index.php?success=true");
               die();
           } else {
             echo "Error: " . $sql . "<br>" . $conn->error;

@@ -57,7 +57,6 @@ if($password!=$password2) {
               if(mysqli_num_rows($result)==1) {
                   $row=mysqli_fetch_assoc($result);
                   $userid=$row['js_id'];
-                  setcookie("user", $userid, time() + (86400 * 30), "/");
                   session_start();
                   $_SESSION['user']=$userid;
                   $_SESSION['type']='jobseeker';
