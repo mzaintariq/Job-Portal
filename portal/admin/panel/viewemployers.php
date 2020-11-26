@@ -18,7 +18,7 @@
 
 <div class='container mt-4'>
 
-<h1 class='mb-4'>All Employers</h1>
+<h1 class='mb-4'><i class="fas fa-users"></i> All Employers</h1>
 <small>The rows shown in red are employees that are blocked.</small>
 <?php
 
@@ -47,7 +47,7 @@ if ($conn->connect_error) {
                     <div class='card-body'>No Employer Accounts Exist</div>
                 </div>";
     } else {
-        echo "<table class='table'>";
+        echo "<table class='table table-hover'>";
         echo "<thead><tr>
         <td>Name</td>
         <td>Age</td>
@@ -62,10 +62,12 @@ if ($conn->connect_error) {
         while($row=mysqli_fetch_assoc($result)) {
             $class='';
             $pretext='B';
+            $icon='-slash';
             $gender;
             if($row['blocked']==1) {
                 $class="table-danger";
                 $pretext='Unb';
+                $icon='';
             }
             switch($row['gender']) {
                 case 0:
@@ -91,7 +93,9 @@ if ($conn->connect_error) {
              . "<td>" . $row['email'] . "</td>"
              . "<td>" . $row['companyname'] . "</td>"
              . "<td>" . $row['address'] . "</td>"
-             . "<td><a onClick='blockEmployer(" . $row['emp_id'] . ")' class='btn btn-link'>" . $pretext . "lock</a></td></tr>";
+             . "<td><a onClick='blockEmployer(" . $row['emp_id'] . ")' class='btn btn-link'>"
+             . "<i class='fas fa-user" . $icon . "'></i> " . $pretext . "lock</a>"
+             . "</td></tr>";
         }
 
         echo "</table>";
