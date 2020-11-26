@@ -131,8 +131,10 @@
         if (isset($_GET['invalidcredentials']) && $_GET['invalidcredentials']==1) {
             if(isset($_GET['remaining_attempts']) && $_GET['remaining_attempts']==0) {
                 $error="<p>You have exhausted your login attempts. You must wait 30 minutes to try to log in again.</p>";
+            } else if (isset($_GET['remaining_attempts'])) {
+                $error="<p class='bg-danger text-light'>Invalid credentials. You have " . $_GET['remaining_attempts'] . " attempts remaining.</p>";
             } else {
-                $error="<p class='bg-danger text-light'>Invalid credentials. You have " . $_GET['remaining_attempts'] . " attempts remaining. </p>";
+                $error="<p class='bg-danger text-light'>Invalid credentials. Try again.</p>";
             }
             $passwordClass='is-invalid';
             $emailClass='is-invalid';

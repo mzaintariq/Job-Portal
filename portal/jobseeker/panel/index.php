@@ -39,7 +39,3 @@
     <a href='logout.php'>Click here to logout</a>
 </body>
 </html>
-
-<?php
-    }
-?>
