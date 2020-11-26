@@ -1,10 +1,7 @@
 <?php
     if(isset($_POST['email']) || isset($_POST['password'])) {
         //connecting to database
-        $servername = "localhost:3306";
-        $username = "root";
-        $pwd = "root";
-        $dbname = "portal";
+        require('../connect.php');
         
         // Create connection
         $conn = new mysqli($servername, $username, $pwd, $dbname);
