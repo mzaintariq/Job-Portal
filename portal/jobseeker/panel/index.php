@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if(!isset($_SESSION['user']) || !isset($_COOKIE['user'])) {
+    if(!isset($_SESSION['user'])) {
         header("Location:./index.php?login");
         die();
     } else if($_SESSION['type']=='employer') {

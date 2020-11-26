@@ -54,6 +54,7 @@
             $result = mysqli_query($conn,$sql);
 
             if(mysqli_num_rows($result)==0) {
+                //password or email was wrong
 
                     //if someone did attempt to login before
                     if(mysqli_num_rows($result0)>0) {
@@ -90,7 +91,7 @@
                     } else {    
                         $sql4 = "INSERT INTO `login_attempts_log`(`emp_id`, `last_attempt`, `attempt_no`) VALUES (" . $row2['emp_id'] . ",NOW(),1)";
                         if(mysqli_query($conn,$sql4)) {
-                            echo "Login Logged Successfully.";
+                            echo "Login Attempt Logged Successfully.";
                         } else {
                             echo "Login Attempt Log Failed.";
                         }
@@ -98,7 +99,7 @@
                         
 
                         //redirect back to login page with invalid credentials warning
-                        //header('Location:login.php?invalidcredentials=1');
+                        header('Location:login.php?invalidcredentials=1');
             } else {
                 $row=mysqli_fetch_assoc($result);
                 $id=$row['emp_id'];

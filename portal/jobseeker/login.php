@@ -22,7 +22,6 @@
             } else {
                 $row=mysqli_fetch_assoc($result);
                 $id=$row['js_id'];
-                setcookie("user", $id, time() + (86400 * 30), "/");
                 session_start();
                 $_SESSION['user']=$id;
                 $_SESSION['type']='jobseeker';

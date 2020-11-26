@@ -1,13 +1,10 @@
 <?php
-    session_start();
-    if(!isset($_SESSION['user']) || !isset($_COOKIE['user'])) {
-        header("Location:./index.php");
-        die();
-    } else if ($_SESSION['type']=='jobseeker') {
-        echo "You have no access here. Please leave.";
-        die();
-    } else {
-        require('../../connect.php');
+    
+    require('../emp_verify.php');
+    //if user was not logged in, he would be redirected to login page and the following lines of code would not run
+    //note that the session_start() command is included in above file
+    
+    require('../../connect.php');
         
         // Create connection
         $conn = new mysqli($servername, $username, $pwd, $dbname);
@@ -73,6 +70,3 @@
 </body> -->
 </html>
 
-<?php
-    }
-?>
