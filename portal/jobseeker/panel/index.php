@@ -1,13 +1,9 @@
 <?php
-    session_start();
-    if(!isset($_SESSION['user'])) {
-        header("Location:./index.php?login");
-        die();
-    } else if($_SESSION['type']=='employer') {
-        echo "You have no access here. Please leave.";
-        die();
-    } else {
-        require('../../connect.php');
+    require('../js_verify.php');
+    //this will make sure the user is logged in to access this page
+    //put this require statement in the start of all PHP files
+        
+    require('../../connect.php');
         
         // Create connection
         $conn = new mysqli($servername, $username, $pwd, $dbname);
