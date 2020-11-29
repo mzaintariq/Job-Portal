@@ -95,18 +95,37 @@
         $result2 = mysqli_query($conn,$sql2);
         while($row2 = mysqli_fetch_assoc($result2))
         {
+            $job_id = $row2['job_id'];
+            $emp_id = $row2['emp_id']; 
+            $title = $row2['title'];
+            $description = $row2['description'];
+            $type = $row2['type'];
+            $mode = $row2['mode'];
+            $location = $row2['location'];
+            $salary = $row2['salary'];
+            $min_age_req = $row2['min_age_req'];
+            $min_edu_req = $row2['min_edu_req'];
+            $min_exp_req = $row2['min_exp_req'];
+            $questions = $row2['questions'];
+            $blocked = $row2['blocked'];
+            $js_id = $row2['js_id'];
+
         print "<tr>";
-            print "<td>" . $row2['title'] . "</td>";
-            print "<td>" . $row2['description'] . "</td>";
-            print "<td>" . $row2['type'] . "</td>";
-            print "<td>" . $row2['mode'] . "</td>";
-            print "<td>" . $row2['location'] . "</td>";
-            print "<td>" . $row2['salary'] . "</td>";
-            print "<td>" . $row2['min_age_req'] . "</td>";
-            print "<td>" . $row2['min_edu_req'] . "</td>";
-            print "<td>" . $row2['min_exp_req'] . "</td>";
-            print "<td>" . $row2['questions'] . "</td>";
-            print "<td> <button type=\"button\" onClick=\"window.location='apply.php';\" class=\"btn btn-success\">Apply</button></td>";
+            print "<td>" . $title . "</td>";
+            print "<td>" . $description . "</td>";
+            print "<td>" . $type . "</td>";
+            print "<td>" . $mode . "</td>";
+            print "<td>" . $location . "</td>";
+            print "<td>" . $salary . "</td>";
+            print "<td>" . $min_age_req. "</td>";
+            print "<td>" . $min_edu_req . "</td>";
+            print "<td>" . $min_exp_req . "</td>";
+            print "<td>" . $questions . "</td>";
+            print "<form action='apply.php' method='post'>";
+            //print "<input type=\"submit\" name='title' value"
+            print "<input type='hidden' name='questions' value='" . $questions . "'></input>";
+            print "<td> <button type=\"submit\" name='title' value=\"" . $title . "\" class=\"btn btn-success\">Apply</button></td>";
+            print "</form";
         print "</tr>";
         }
         ?>

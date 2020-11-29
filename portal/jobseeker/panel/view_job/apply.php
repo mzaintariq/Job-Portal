@@ -61,20 +61,20 @@
 <div class='container'>
 <p class='mt-3'>Welcome <?php echo $prename . ' ' . $name; ?></p>
 <h1 class="mb-4">
-    Apply for Job
+    Apply for <?php echo $_POST['title']; ?>
 </h1>
 
 <?php echo $error; ?> 
 <form action="job_post.php" method="post">
-    <h3>Statement</h3>
+    <h3>Why should we hire you?</h3>
     <div class="input-group mb-3">
         <!-- <label for="questions">Questions:</label> -->
-        <textarea name="questions" class="form-control" rows="5" placeholder="Why should we hire you?"></textarea>
+        <textarea name="questions" class="form-control" rows="5" placeholder="Please put your statement here"></textarea>
     </div>
 
     <div class="input-group mb-3">
         <!-- <label for="questions">Questions:</label> -->
-        <textarea name="questions" class="form-control" rows="5" placeholder="Questions for Applicant"></textarea>
+        <textarea name="questions" class="form-control" rows="5" placeholder="Please answer here"></textarea>
     </div>
 
 </form>
