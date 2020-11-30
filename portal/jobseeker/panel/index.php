@@ -6,7 +6,7 @@
     require('../../connect.php');
         
     $tableName='jobseekers';
-    require('../../../prename.php');  
+    require('../../prename.php');  
     //this just figures out whether to write "Mr." with the user's name or "Ms." based on their gender
 
 ?>
