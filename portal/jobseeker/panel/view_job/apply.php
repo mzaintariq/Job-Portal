@@ -6,29 +6,22 @@
     //note that the session_start() command is included in above file
 
     require('../../../connect.php');
-    //load database connection credentials
+    //load database connection credentials and check if connection was successful. Create $conn variable.
         
-        // Create connection
-        $conn = new mysqli($servername, $username, $pwd, $dbname);
-        // Check connection
-        if ($conn->connect_error) {
-            header('Location:login.php?connectionfailed=1');
-            die("Connection failed: " . $conn->connect_error);
-        } else {
-            $sql = "SELECT `firstname`,`gender` FROM `jobseekers` WHERE `js_id`=" . $_SESSION['user'] . " LIMIT 0,1";
-            $result = mysqli_query($conn,$sql);
-            $row=mysqli_fetch_assoc($result);
+    $sql = "SELECT `firstname`,`gender` FROM `jobseekers` WHERE `js_id`=" . $_SESSION['user'] . " LIMIT 0,1";
+    $result = mysqli_query($conn,$sql);
+    $row=mysqli_fetch_assoc($result);
 
-            if($row['gender']==0) {
-                $prename=' Mr.';
-            } else if ($row['gender']==1) {
-                $prename=' Ms.';
-            } else {
-                $prename='';
-            }
-            
-            $name=$row['firstname'];
-        }
+    if($row['gender']==0) {
+        $prename=' Mr.';
+    } else if ($row['gender']==1) {
+        $prename=' Ms.';
+    } else {
+        $prename='';
+    }
+    
+    $name=$row['firstname'];
+        
 ?>
 
 <!DOCTYPE html>

@@ -25,82 +25,77 @@
 require('../admin_verify.php');
 require('../../connect.php');
 
-// Create connection
-$conn = new mysqli($servername, $username, $pwd, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} else {
-    if(!isset($_GET['page']))
-        $_GET['page']=1;
-    $upperLimit = $_GET['page']*20;
-    //we will display 20 employers per page
-    $sql = "SELECT * FROM `employers` WHERE 1 LIMIT 0," . $upperLimit;
-    $result = mysqli_query($conn,$sql);
-    if($result==false) {
-        echo "<div class='card bg-danger text-white'>
-                    <div class='card-body'>Query Failed</div>
-                </div>";
-    }
-    else if(mysqli_num_rows($result)==0) {
-        echo "<div class='card bg-danger text-white'>
-                    <div class='card-body'>No Employer Accounts Exist</div>
-                </div>";
-    } else {
-        echo "<table class='table table-hover'>";
-        echo "<thead><tr>
-        <td>Name</td>
-        <td>Age</td>
-        <td>Gender</td>
-        <td>Email</td>
-        <td>Company</td>
-        <td>Address</td>
-        <td>Action</td>
-        </tr></thead>";
-        
 
-        while($row=mysqli_fetch_assoc($result)) {
-            $class='';
-            $pretext='B';
-            $icon='-slash';
-            $gender;
-            if($row['blocked']==1) {
-                $class="table-danger";
-                $pretext='Unb';
-                $icon='';
-            }
-            switch($row['gender']) {
-                case 0:
-                    $gender='Male';
-                break;
-                
-                case 1:
-                    $gender='Female';
-                break;
-                
-                case 2:
-                    $gender='Other';
-                break;
+  if(!isset($_GET['page']))
+      $_GET['page']=1;
+  $upperLimit = $_GET['page']*20;
+  //we will display 20 employers per page
+  $sql = "SELECT * FROM `employers` WHERE 1 LIMIT 0," . $upperLimit;
+  $result = mysqli_query($conn,$sql);
+  if($result==false) {
+      echo "<div class='card bg-danger text-white'>
+                  <div class='card-body'>Query Failed</div>
+              </div>";
+  }
+  else if(mysqli_num_rows($result)==0) {
+      echo "<div class='card bg-danger text-white'>
+                  <div class='card-body'>No Employer Accounts Exist</div>
+              </div>";
+  } else {
+      echo "<table class='table table-hover'>";
+      echo "<thead><tr>
+      <td>Name</td>
+      <td>Age</td>
+      <td>Gender</td>
+      <td>Email</td>
+      <td>Company</td>
+      <td>Address</td>
+      <td>Action</td>
+      </tr></thead>";
+      
 
-                default:
-                    $gender='Unknown';
-                break;
-            }
+      while($row=mysqli_fetch_assoc($result)) {
+          $class='';
+          $pretext='B';
+          $icon='-slash';
+          $gender;
+          if($row['blocked']==1) {
+              $class="table-danger";
+              $pretext='Unb';
+              $icon='';
+          }
+          switch($row['gender']) {
+              case 0:
+                  $gender='Male';
+              break;
+              
+              case 1:
+                  $gender='Female';
+              break;
+              
+              case 2:
+                  $gender='Other';
+              break;
 
-            echo "<tr class='" . $class . "'><td>" . $row['firstname'] . ' ' . $row['lastname'] . "</td>"
-             . "<td>" . $row['age'] . "</td>"
-             . "<td>" . $gender . "</td>"
-             . "<td>" . $row['email'] . "</td>"
-             . "<td>" . $row['companyname'] . "</td>"
-             . "<td>" . $row['address'] . "</td>"
-             . "<td><a onClick='blockEmployer(" . $row['emp_id'] . ")' class='btn btn-link'>"
-             . "<i class='fas fa-user" . $icon . "'></i> " . $pretext . "lock</a>"
-             . "</td></tr>";
-        }
+              default:
+                  $gender='Unknown';
+              break;
+          }
 
-        echo "</table>";
-    }
-}
+          echo "<tr class='" . $class . "'><td>" . $row['firstname'] . ' ' . $row['lastname'] . "</td>"
+            . "<td>" . $row['age'] . "</td>"
+            . "<td>" . $gender . "</td>"
+            . "<td>" . $row['email'] . "</td>"
+            . "<td>" . $row['companyname'] . "</td>"
+            . "<td>" . $row['address'] . "</td>"
+            . "<td><a onClick='blockEmployer(" . $row['emp_id'] . ")' class='btn btn-link'>"
+            . "<i class='fas fa-user" . $icon . "'></i> " . $pretext . "lock</a>"
+            . "</td></tr>";
+      }
+
+      echo "</table>";
+  }
+
 
 ?>
 

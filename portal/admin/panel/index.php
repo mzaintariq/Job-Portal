@@ -4,25 +4,18 @@
     //if user was not logged in, he would be redirected to login page and the following lines of code would not run
     //note that the session_start() command is included in above file
     
-    require('../../connect.php');
+    require('../../connect.php');  
         
-        // Create connection
-        $conn = new mysqli($servername, $username, $pwd, $dbname);
-        // Check connection
-        if ($conn->connect_error) {
-            header('Location:../login.php?connectionfailed=1');
-            die("Connection failed: " . $conn->connect_error);
-        } else {
-            $sql = "SELECT `firstname` FROM `admins` WHERE `admin_id`=" . $_SESSION['user'] . " LIMIT 0,1";
-            $result = mysqli_query($conn,$sql);
-            if(mysqli_num_rows($result)<1) {
-                header('Location:../login.php?connectionfailed=1');
-                die();
-            }
-            $row=mysqli_fetch_assoc($result);
+    $sql = "SELECT `firstname` FROM `admins` WHERE `admin_id`=" . $_SESSION['user'] . " LIMIT 0,1";
+    $result = mysqli_query($conn,$sql);
+    if(mysqli_num_rows($result)<1) {
+        header('Location:../login.php?connectionfailed=1');
+        die();
+    }
+    $row=mysqli_fetch_assoc($result);
 
-            $name=$row['firstname'];
-        }
+    $name=$row['firstname'];
+        
 ?>
 
 <!DOCTYPE html>

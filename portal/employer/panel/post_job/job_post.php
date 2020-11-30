@@ -24,13 +24,7 @@
     //connecting to database
     require('../../../connect.php');
 
-    // Create connection
-    $conn = new mysqli($servername, $username, $pwd, $dbname);
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
+    
     $sql = "INSERT INTO `jobs` (emp_id, title, description, type, mode, location, salary, min_age_req, min_edu_req, min_exp_req, questions)
     VALUES ('$emp_id', '$title', '$description', '$type', '$mode', '$location', $salary,'$min_age_req','$min_edu_req','$min_exp_req','$questions')";
 

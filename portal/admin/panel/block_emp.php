@@ -1,15 +1,9 @@
 <?php
 
-//this is a toggle block file. Subsequent requests to this file will block / unblock a user
-require('../admin_verify.php');
-require('../../connect.php');
+    //this is a toggle block file. Subsequent requests to this file will block / unblock a user
+    require('../admin_verify.php');
+    require('../../connect.php');
 
-// Create connection
-$conn = new mysqli($servername, $username, $pwd, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} else {
     if(!isset($_POST['id'])) {
         die('No employer id specified');
     }
@@ -33,13 +27,13 @@ if ($conn->connect_error) {
         }
     }
 
-    
-    
+
+
     if(mysqli_query($conn,$sql)) {
         echo $returnText;
     } else {
         echo "failure";
     }
-}
+
 
 ?>

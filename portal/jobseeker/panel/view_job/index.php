@@ -4,59 +4,38 @@
     //put this require statement in the start of all PHP files
         
     require('../../../connect.php');
-        
-        // Create connection
-        $conn = new mysqli($servername, $username, $pwd, $dbname);
-        // Check connection
-        if ($conn->connect_error) {
-            header('Location:login.php?connectionfailed=1');
-            die("Connection failed: " . $conn->connect_error);
-        } else {
-            $sql = "SELECT `firstname`,`gender` FROM `jobseekers` WHERE `js_id`=" . $_SESSION['user'] . " LIMIT 0,1";
-            $result = mysqli_query($conn,$sql);
-            $row=mysqli_fetch_assoc($result);
 
-            if($row['gender']==0) {
-                $prename=' Mr.';
-            } else if ($row['gender']==1) {
-                $prename=' Ms.';
-            } else {
-                $prename='';
-            }
-            
-            $name=$row['firstname'];
+
+        $sql = "SELECT `firstname`,`gender` FROM `jobseekers` WHERE `js_id`=" . $_SESSION['user'] . " LIMIT 0,1";
+        $result = mysqli_query($conn,$sql);
+        $row=mysqli_fetch_assoc($result);
+
+        if($row['gender']==0) {
+            $prename=' Mr.';
+        } else if ($row['gender']==1) {
+            $prename=' Ms.';
+        } else {
+            $prename='';
         }
+        
+        $name=$row['firstname'];
+        
+
+        //once the user has applied for the job in apply.php, the success/failure message
+        //is returned to this file through the URL. This following code handles the display of
+        //that message.
         $error='';
         $errorClass='';
-        if(isset($_GET['apply'])) {
-            if($_GET['apply']=='success') {
-                $error='Successfully applied for job.';
+        if(isset($_GET['apply'])) {//this checks if a message exists in a URL
+            if($_GET['apply']=='success') {//is the message SUCCESS?
+                $error='Successfully applied for job.'; //if yes, then set $error to a happy message
                 $errorClass='alert-success';
-            } else {
-                $error='Failed to apply for job. Try again or contact developers.';
+            } else {//if the message is one of failure
+                $error='Failed to apply for job. Try again or contact developers.'; //set $error to a message of doom
                 $errorClass='alert-danger';
             }
         }
-        //$sql2 = "SELECT `title` FROM `jobs`";
-/*$sql2 = "SELECT * FROM `jobs`";
-        $result2 = mysqli_query($conn,$sql2);
-        while($row2 = mysqli_fetch_assoc($result2))
-        {
-            $job_id = $row2['job_id'];
-            $emp_id = $row2['emp_id']; 
-            $title = $row2['title'];
-            $description = $row2['description'];
-            $type = $row2['type'];
-            $mode = $row2['mode'];
-            $location = $row2['location'];
-            $salary = $row2['salary'];
-            $min_age_req = $row2['min_age_req'];
-            $min_edu_req = $row2['min_edu_req'];
-            $min_exp_req = $row2['min_exp_req'];
-            $questions = $row2['questions'];
-            $blocked = $row2['blocked'];
-            $js_id = $row2['js_id'];
-        }*/
+       
 ?>
 
 <!DOCTYPE html>
@@ -84,7 +63,7 @@
     </div>
 
     <div class="alert <?php echo $errorClass; ?>" role="alert">
-        <?php echo $error; ?>
+        <?php echo $error; ?>   <!--display the error message that came after user applied for job-->
     </div>
 
     <table class="table">

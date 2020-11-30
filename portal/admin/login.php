@@ -3,13 +3,6 @@
         //connecting to database
         require('../connect.php');
         
-        // Create connection
-        $conn = new mysqli($servername, $username, $pwd, $dbname);
-        // Check connection
-        if ($conn->connect_error) {
-            echo "Connection to Database Failed";
-            die("Connection failed: " . $conn->connect_error);
-        } else {
 
             $email=$_POST['email'];
 
@@ -108,7 +101,7 @@
                 $_SESSION['type']='admin';
                 header('Location:./panel');
             }
-        }
+        
 
     } else {
 ?>

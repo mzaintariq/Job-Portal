@@ -22,13 +22,6 @@ if($password!=$password2) {
 
     //connecting to database
     require('../connect.php');
-    
-    // Create connection
-    $conn = new mysqli($servername, $username, $pwd, $dbname);
-    // Check connection
-    if ($conn->connect_error) {
-      die("Connection failed: " . $conn->connect_error);
-    }
 
     //checking if email already exists
     $sql0 = "SELECT count(`js_id`) AS numEmployees FROM `jobseekers` WHERE `email`='$email' LIMIT 1";

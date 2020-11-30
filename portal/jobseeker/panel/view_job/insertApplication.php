@@ -6,29 +6,8 @@ require('../../js_verify.php');
     //note that the session_start() command is included in above file
 
     require('../../../connect.php');
-    //load database connection credentials
-        
-        // Create connection
-        $conn = new mysqli($servername, $username, $pwd, $dbname);
-        // Check connection
-        if ($conn->connect_error) {
-            header('Location:login.php?connectionfailed=1');
-            die("Connection failed: " . $conn->connect_error);
-        } else {
-            $sql = "SELECT `firstname`,`gender` FROM `jobseekers` WHERE `js_id`=" . $_SESSION['user'] . " LIMIT 0,1";
-            $result = mysqli_query($conn,$sql);
-            $row=mysqli_fetch_assoc($result);
-
-            if($row['gender']==0) {
-                $prename=' Mr.';
-            } else if ($row['gender']==1) {
-                $prename=' Ms.';
-            } else {
-                $prename='';
-            }
-            
-            $name=$row['firstname'];
-        }
+    //this file loads database connection credentials and creates the $conn object
+    //it also checks if connection was successful and displays error if it was not
 
 
         $job_id=$_POST['job_id'];
@@ -37,13 +16,16 @@ require('../../js_verify.php');
         $answers = $_POST['answers'];
 
         $sql = "INSERT INTO `applications` (job_id,js_id,statement,answers) VALUES ($job_id,$js_id,'$statement','$answers')";
+
         $result = mysqli_query($conn,$sql);
+
+
         if($result) {
             echo "Successfully Applied For Job";
-            header('Location:index.php?apply=success');
+            header('Location:index.php?apply=success'); //return success message through URL
         } else {
             echo "Failed to apply.";
-            header('Location:index.php?apply=failed');
+            header('Location:index.php?apply=failed');  //return failure message through URL
         }
 
 ?>

@@ -22,13 +22,6 @@ if($password!=$password2) {
     //connecting to database
     require('../connect.php');
     
-    // Create connection
-    $conn = new mysqli($servername, $username, $pwd, $dbname);
-    // Check connection
-    if ($conn->connect_error) {
-      die("Connection failed: " . $conn->connect_error);
-    }
-
     //checking if referral code is valid
     $referralValid=false;
     $sqlRef = "SELECT `referral_code`,`admin_id` FROM `admins` WHERE `referral_code` IS NOT NULL";
