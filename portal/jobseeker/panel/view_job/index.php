@@ -26,7 +26,17 @@
             
             $name=$row['firstname'];
         }
-        
+        $error='';
+        $errorClass='';
+        if(isset($_GET['apply'])) {
+            if($_GET['apply']=='success') {
+                $error='Successfully applied for job.';
+                $errorClass='alert-success';
+            } else {
+                $error='Failed to apply for job. Try again or contact developers.';
+                $errorClass='alert-danger';
+            }
+        }
         //$sql2 = "SELECT `title` FROM `jobs`";
 /*$sql2 = "SELECT * FROM `jobs`";
         $result2 = mysqli_query($conn,$sql2);
@@ -73,22 +83,26 @@
     <!-- <p>Creators: Rohan, Zain, and Zahab from LUMS</p> -->
     </div>
 
-    <div class="jumbotron">
+    <div class="alert <?php echo $errorClass; ?>" role="alert">
+        <?php echo $error; ?>
+    </div>
 
     <table class="table">
-        <tr>
-            <td><b>Title</b></td>
-            <td><b>Description</b></td>
-            <td><b>Type</b></td>
-            <td><b>Mode</b></td>
-            <td><b>Location</b></td>
-            <td><b>Salary</b></td>
-            <td><b>Minimum Age</b></td>
-            <td><b>Minimum Eductation</b></td>
-            <td><b>Minimum Experience</b></td>
-            <td><b>Questions</b></td>
-            <td><b>Apply</b></td>
-        </tr>
+        <thead>
+            <tr>
+                <td><b>Title</b></td>
+                <td><b>Description</b></td>
+                <td><b>Type</b></td>
+                <td><b>Mode</b></td>
+                <td><b>Location</b></td>
+                <td><b>Salary</b></td>
+                <td><b>Minimum Age</b></td>
+                <td><b>Minimum Eductation</b></td>
+                <td><b>Minimum Experience</b></td>
+                <td><b>Questions</b></td>
+                <td><b>Apply</b></td>
+            </tr>
+        </thead>
         <?php
 
         $sql2 = "SELECT * FROM `jobs`";
@@ -121,17 +135,15 @@
             print "<td>" . $min_edu_req . "</td>";
             print "<td>" . $min_exp_req . "</td>";
             print "<td>" . $questions . "</td>";
-            print "<form action='apply.php' method='post'>";
-            //print "<input type=\"submit\" name='title' value"
-            print "<input type='hidden' name='questions' value='" . $questions . "'></input>";
-            print "<td> <button type=\"submit\" name='title' value=\"" . $title . "\" class=\"btn btn-success\">Apply</button></td>";
-            print "</form";
+            $urltitle = urlencode($title);
+            $urlquestions = urlencode($questions);
+            print "<td><a href='apply.php?job_id=" . $job_id . "&title=" . $urltitle . "&questions=" . $urlquestions . "'>Apply</a></td>";
         print "</tr>";
         }
         ?>
     </table>
 
-    </div>
+    
 
     <div class="btn-group btn-group-lg mt-3">
     <button type="button" onClick="window.location='../index.php';" class="btn btn-success">Back</button>

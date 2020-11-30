@@ -52,6 +52,10 @@
         if (isset($_GET['success']) && $_GET['success']==TRUE) {
             $error="New record created successfully";
         }
+        if(!isset($_GET['title']) || !isset($_GET['questions']) || !isset($_GET['job_id'])) {
+            header('Location:index.php');
+            die();
+        }
     ?>
 
 </head>
@@ -60,26 +64,31 @@
 
 <div class='container'>
 <p class='mt-3'>Welcome <?php echo $prename . ' ' . $name; ?></p>
-<h1 class="mb-4">
-    Apply for <?php echo $_POST['title']; ?>
-</h1>
+<h3 class="mb-4">
+    Apply for <?php echo $_GET['title']; ?>
+</h3>
 
 <?php echo $error; ?> 
-<form action="job_post.php" method="post">
-    <h3>Why should we hire you?</h3>
+<form action="insertApplication.php" method="post">
+    <p>Why should we hire you?</p>
     <div class="input-group mb-3">
         <!-- <label for="questions">Questions:</label> -->
-        <textarea name="questions" class="form-control" rows="5" placeholder="Please put your statement here"></textarea>
+        <textarea name="statement" class="form-control" rows="5" placeholder="Please put your statement here"></textarea>
     </div>
 
+    <p><?php echo $_GET['questions']; ?></p>
     <div class="input-group mb-3">
         <!-- <label for="questions">Questions:</label> -->
-        <textarea name="questions" class="form-control" rows="5" placeholder="Please answer here"></textarea>
+        <textarea name="answers" class="form-control" rows="5" placeholder="Please answer here"></textarea>
     </div>
+
+    <input type='hidden' name='job_id' value='<?php echo $_GET["job_id"]; ?>'>
+
+    <button type="submit" class="form-control btn-success"><i class="fas fa-paper-plane"></i> Submit</button>
 
 </form>
 
-<button type="submit" class="form-control btn-success"><i class="fas fa-paper-plane"></i> Submit</button>
+
 
 <div class='container pt-5'>
     <div class="btn-group btn-group-lg mt-3">

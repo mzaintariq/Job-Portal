@@ -82,9 +82,14 @@
         </div>
 
         <button type="submit" class="form-control btn-success"><i class="fas fa-paper-plane"></i> Sign Up</button>
+        
     </div>
     
 </form>
 
+<div style='text-align:center;width:100%;'>
+    <p>OR</p>
+    <a href='login.php'>Login</a>
+</div>
 </div>
 </body>

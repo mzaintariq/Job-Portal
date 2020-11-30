@@ -79,5 +79,9 @@
     
 </form>
 
+<div style='text-align:center;width:100%;'>
+    <p>OR</p>
+    <a href='login.php'>Login</a>
+</div>
 </div>
 </body>
