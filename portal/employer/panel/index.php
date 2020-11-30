@@ -40,6 +40,8 @@
     <button type="button" onClick="window.location='logout.php';" class="btn btn-primary">Logout</button>
     <button type="button" onClick="window.location='post_job/index.php';" class="btn btn-primary">Post Job</button>
     <button type="button" onClick="window.location='view_app/index.php';" class="btn btn-primary">View Posts</button>
+    <button type="button" onClick="window.location='view_js/index.php';" class="btn btn-primary">Job Seekers</button>
+
 
     <!-- <div class="btn-group btn-group-lg mt-3">
     <button type="button" onClick="window.location='view_app/index.php';" class="btn btn-success">View Posts</button>
