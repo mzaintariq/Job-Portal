@@ -52,10 +52,6 @@
     <!-- <p>Creators: Rohan, Zain, and Zahab from LUMS</p> -->
     </div>
 
-    <div class="alert <?php echo $errorClass; ?>" role="alert">
-        <?php echo $error; ?>   <!--display the error message that came after user applied for job-->
-    </div>
-
     <table class="table">
         <thead>
             <tr>

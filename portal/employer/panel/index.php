@@ -22,6 +22,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/13ad6678d8.js"></script>
     <title>Employer Panel</title>
+    <style>.ptr{cursor:pointer;}</style>
 </head>
 <!-- <head>
     <title>Employer Panel</title>
@@ -36,20 +37,57 @@
     <!-- <p>Creators: Rohan, Zain, and Zahab from LUMS</p> -->
     </div>
 
-    <div class="btn-group btn-group-lg mt-3">
+    <div class="card-columns">
+        <!--Post Job-->
+        <div class="card bg-warning ptr"  onClick="window.location='post_job/index.php';">
+            <div class="card-body text-center">
+                <p class="card-text text-light">Post Job</p>
+            </div>
+        </div>
+
+        <!--View Job Posts-->
+        <div class="card bg-primary ptr"  onClick="window.location='view_app/index.php';">
+            <div class="card-body text-center">
+                <p class="card-text text-light">View Job Posts</p>
+            </div>
+        </div>
+
+        <!--View Job Seekers-->
+        <div class="card bg-primary ptr"  onClick="window.location='view_js/index.php';">
+            <div class="card-body text-center">
+                <p class="card-text text-light">View Job Seekers</p>
+            </div>
+        </div>
+
+        <!--View Employees-->
+        <div class="card bg-primary ptr"  onClick="window.location='view_employees/index.php';">
+            <div class="card-body text-center">
+                <p class="card-text text-light">View My Employees</p>
+            </div>
+        </div>
+
+        <!--Logout-->
+        <div class="card bg-danger ptr" onClick="window.location='logout.php';">
+            <div class="card-body text-center">
+            <p class="card-text text-light">Logout</p>
+            </div>
+        </div>
+    </div>
+
+    <!--<div class="btn-group btn-group-lg mt-3">
     <button type="button" onClick="window.location='logout.php';" class="btn btn-primary">Logout</button>
     <button type="button" onClick="window.location='post_job/index.php';" class="btn btn-primary">Post Job</button>
     <button type="button" onClick="window.location='view_app/index.php';" class="btn btn-primary">View Posts</button>
     <button type="button" onClick="window.location='view_js/index.php';" class="btn btn-primary">Job Seekers</button>
     <button type="button" onClick="window.location='view_employees/index.php';" class="btn btn-primary">View My Employees</button>
-
+    </div> -->
 
     <!-- <div class="btn-group btn-group-lg mt-3">
     <button type="button" onClick="window.location='view_app/index.php';" class="btn btn-success">View Posts</button>
     </div>  -->
 
     <!-- <button type="button" onClick="window.location='./check.php';" class="btn btn-primary">Check</button> -->
-    </div> 
+    
 </div>
 
 </body>

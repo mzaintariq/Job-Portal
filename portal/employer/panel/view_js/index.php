@@ -52,9 +52,7 @@
     <!-- <p>Creators: Rohan, Zain, and Zahab from LUMS</p> -->
     </div>
 
-    <div class="alert <?php echo $errorClass; ?>" role="alert">
-        <?php echo $error; ?>   <!--display the error message that came after user applied for job-->
-    </div>
+    
 
     <table class="table">
         <thead>
@@ -84,8 +82,8 @@
             $gender = $row2['gender'];
             $email = $row2['email'];
             $profession = $row2['profession'];
-            $experience_months = $row2['experience_months'];
-            $education_months = $row2['education_months'];
+            $experience_months = $row2['experience'];
+            $education_months = $row2['education'];
 
         print "<tr>";
             print "<td>" . $js_id . "</td>";
