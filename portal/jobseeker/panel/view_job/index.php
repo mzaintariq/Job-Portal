@@ -5,36 +5,25 @@
         
     require('../../../connect.php');
 
-
-        $sql = "SELECT `firstname`,`gender` FROM `jobseekers` WHERE `js_id`=" . $_SESSION['user'] . " LIMIT 0,1";
-        $result = mysqli_query($conn,$sql);
-        $row=mysqli_fetch_assoc($result);
-
-        if($row['gender']==0) {
-            $prename=' Mr.';
-        } else if ($row['gender']==1) {
-            $prename=' Ms.';
-        } else {
-            $prename='';
-        }
-        
-        $name=$row['firstname'];
+    $tableName='jobseekers';
+    require('../../../prename.php');  
+    //this just figures out whether to write "Mr." with the user's name or "Ms." based on their gender
         
 
-        //once the user has applied for the job in apply.php, the success/failure message
-        //is returned to this file through the URL. This following code handles the display of
-        //that message.
-        $error='';
-        $errorClass='';
-        if(isset($_GET['apply'])) {//this checks if a message exists in a URL
-            if($_GET['apply']=='success') {//is the message SUCCESS?
-                $error='Successfully applied for job.'; //if yes, then set $error to a happy message
-                $errorClass='alert-success';
-            } else {//if the message is one of failure
-                $error='Failed to apply for job. Try again or contact developers.'; //set $error to a message of doom
-                $errorClass='alert-danger';
-            }
+    //once the user has applied for the job in apply.php, the success/failure message
+    //is returned to this file through the URL. This following code handles the display of
+    //that message.
+    $error='';
+    $errorClass='';
+    if(isset($_GET['apply'])) {//this checks if a message exists in a URL
+        if($_GET['apply']=='success') {//is the message SUCCESS?
+            $error='Successfully applied for job.'; //if yes, then set $error to a happy message
+            $errorClass='alert-success';
+        } else {//if the message is one of failure
+            $error='Failed to apply for job. Try again or contact developers.'; //set $error to a message of doom
+            $errorClass='alert-danger';
         }
+    }
        
 ?>
 

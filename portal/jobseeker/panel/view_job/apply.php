@@ -8,19 +8,9 @@
     require('../../../connect.php');
     //load database connection credentials and check if connection was successful. Create $conn variable.
         
-    $sql = "SELECT `firstname`,`gender` FROM `jobseekers` WHERE `js_id`=" . $_SESSION['user'] . " LIMIT 0,1";
-    $result = mysqli_query($conn,$sql);
-    $row=mysqli_fetch_assoc($result);
-
-    if($row['gender']==0) {
-        $prename=' Mr.';
-    } else if ($row['gender']==1) {
-        $prename=' Ms.';
-    } else {
-        $prename='';
-    }
-    
-    $name=$row['firstname'];
+    $tableName='jobseekers';
+    require('../../../prename.php');  
+    //this just figures out whether to write "Mr." with the user's name or "Ms." based on their gender
         
 ?>
 
@@ -63,18 +53,21 @@
 
 <?php echo $error; ?> 
 <form action="insertApplication.php" method="post">
+
+    <!--user gives his statement here-->
     <p>Why should we hire you?</p>
-    <div class="input-group mb-3">
-        <!-- <label for="questions">Questions:</label> -->
-        <textarea name="statement" class="form-control" rows="5" placeholder="Please put your statement here"></textarea>
-    </div>
+        <div class="input-group mb-3">
+            <textarea name="statement" class="form-control" rows="5" placeholder="Please put your statement here"></textarea>
+        </div>
 
+    <!--printing the questions so that the user knows that to answer-->
     <p><?php echo $_GET['questions']; ?></p>
-    <div class="input-group mb-3">
-        <!-- <label for="questions">Questions:</label> -->
-        <textarea name="answers" class="form-control" rows="5" placeholder="Please answer here"></textarea>
-    </div>
 
+        <div class="input-group mb-3">
+            <textarea name="answers" class="form-control" rows="5" placeholder="Please answer here"></textarea>
+        </div>
+
+    <!--this hidden input field takes the job id to the insertApplication.php file-->
     <input type='hidden' name='job_id' value='<?php echo $_GET["job_id"]; ?>'>
 
     <button type="submit" class="form-control btn-success"><i class="fas fa-paper-plane"></i> Submit</button>
