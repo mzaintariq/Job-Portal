@@ -31,6 +31,17 @@
         }
         return $gender;
     }
+    $error='';
+    $errorClass='success';
+    $errorVisibility='none';
+    if(isset($_GET['firesuccess']) && $_GET['firesuccess']==1) {
+        $error='Successfully fired employee.';
+        $errorVisibility='block';
+    } else if (isset($_GET['firesuccess']) && $_GET['firesuccess']==0) {
+        $error='Failed to fire employee.';
+        $errorClass='danger';
+        $errorVisibility='block';
+    }
 ?>
 
 
@@ -55,34 +66,43 @@
 
 
     <h1>Employees:</h1>
+    <div class="alert alert-<?php echo $errorClass; ?>" role="alert" style="display:<?php echo $errorVisibility; ?>">
+        <?php echo $error; ?>
+    </div>
     
     <?php
-        $sql = "SELECT `firstname`,`lastname`,`email`,`age`,`gender` FROM `jobseekers` WHERE `js_id` IN
+        $sql = "SELECT `js_id`,`firstname`,`lastname`,`email`,`age`,`gender` FROM `jobseekers` WHERE `js_id` IN
         (SELECT `js_id` FROM `jobs` WHERE `emp_id`=" . $_SESSION['user'] . ")";
 
         $result = mysqli_query($conn,$sql);
         if($result==false) {
             die("Query failed.");
         }
+        if(mysqli_num_rows($result)==0) {
+            echo "<div class=\"alert alert-warning\" role=\"alert\"><i class=\"fas fa-exclamation-circle\"></i> You have no employees.</div>";
+        } else {
 
-        echo "<table class='table table-striped'>
-        <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Age</th>
-            <th>Gender</th>
-        </tr>";
-        while($row=mysqli_fetch_assoc($result)) {
-            $gender=returnGender($row['gender']);
-            echo "<tr><td>" . $row['firstname'] . " " . $row['lastname'] . "</td>
-            <td>" . $row['email'] . "</td><td>" . $row['age'] . "</td><td>" . $gender . "</td>
+            echo "<table class='table table-striped'>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Fire</th>
             </tr>";
+            while($row=mysqli_fetch_assoc($result)) {
+                $gender=returnGender($row['gender']);
+                echo "<tr><td>" . $row['firstname'] . " " . $row['lastname'] . "</td>
+                <td>" . $row['email'] . "</td><td>" . $row['age'] . "</td><td>" . $gender . "</td>
+                <td><a class='btn btn-link' href='fire.php?js_id=" . $row['js_id'] . "'>Fire Employee</a></td>
+                </tr>";
+            }
+            echo "</table>";
         }
-        echo "</table>"
 
     ?>
     <ul class="pagination">
-       <li class="page-item"><a class="page-link" href="../index.php">Go Back</a></li>
+       <li class="page-item"><a class="page-link" href="../index.php"><i class="fas fa-angle-left"></i> Go Back</a></li>
     </ul>
 
 </body>
