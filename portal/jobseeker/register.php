@@ -8,6 +8,8 @@ $gender=$_POST['gender'];
 $email=$_POST['email'];
 $profession=$_POST['profession'];
 $address=$_POST['address'];
+$education=$_POST['education'];
+$experience=$_POST['experience'];
 $password=$_POST['password1'];
 $password2 = $_POST['password2'];
 
@@ -18,6 +20,9 @@ if($password!=$password2) {
   die();
 } else if ($gender==-1) {
   header("Location:index.php?genderEmpty=1");
+} else if ($firstname=='' || $lastname=='' || $email=='' || $address=='' || $password=='') {
+  header("Location:index.php?emptyfields=1");
+  die();
 } else {
 
     //connecting to database

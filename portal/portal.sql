@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 26, 2020 at 06:37 PM
+-- Generation Time: Nov 30, 2020 at 10:01 PM
 -- Server version: 5.7.31
 -- PHP Version: 7.3.21
 
@@ -37,7 +37,15 @@ CREATE TABLE IF NOT EXISTS `admins` (
   `password` varchar(10000) NOT NULL,
   `referral_code` varchar(1000) DEFAULT NULL,
   PRIMARY KEY (`admin_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `admins`
+--
+
+INSERT INTO `admins` (`admin_id`, `firstname`, `lastname`, `age`, `email`, `password`, `referral_code`) VALUES
+(1, 'Rohan', 'Hussain', 21, 'rohanhussain1@yahoo.com', '250deaf1cdd5387ba66bfc7d8f84824e41becd445afae48a0d01d32ddf2472e8', 'TCDBDLeaVv'),
+(2, 'Alishba', 'Azam', 21, 'alishbazam24@gmail.com', '250deaf1cdd5387ba66bfc7d8f84824e41becd445afae48a0d01d32ddf2472e8', NULL);
 
 -- --------------------------------------------------------
 
@@ -55,7 +63,14 @@ CREATE TABLE IF NOT EXISTS `applications` (
   PRIMARY KEY (`app_id`),
   KEY `job_id` (`job_id`),
   KEY `js_id` (`js_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `applications`
+--
+
+INSERT INTO `applications` (`app_id`, `js_id`, `job_id`, `statement`, `answers`) VALUES
+(1, 21, 1, 'abcd', 'wtfff');
 
 -- --------------------------------------------------------
 
@@ -132,7 +147,14 @@ CREATE TABLE IF NOT EXISTS `jobs` (
   PRIMARY KEY (`job_id`),
   KEY `emp_id` (`emp_id`),
   KEY `js_id` (`js_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `jobs`
+--
+
+INSERT INTO `jobs` (`job_id`, `emp_id`, `title`, `description`, `type`, `mode`, `location`, `salary`, `min_age_req`, `min_edu_req`, `min_exp_req`, `questions`, `blocked`, `js_id`, `status`) VALUES
+(1, 19, 'Graphics Designer', 'abracadabra', 'pt', 'online', 'Somewhere on Earth', 20000, 18, 4, 1, 'Do you know Illustrator?', 0, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -151,10 +173,8 @@ CREATE TABLE IF NOT EXISTS `jobseekers` (
   `profession` varchar(100) NOT NULL,
   `address` varchar(500) NOT NULL,
   `password` varchar(150) NOT NULL,
-  `experience_months` int(100) DEFAULT '0',
-  `experience_details` varchar(20000) DEFAULT NULL,
-  `education_months` int(100) DEFAULT '0',
-  `education_details` varchar(20000) DEFAULT NULL,
+  `experience` int(100) DEFAULT '0',
+  `education` int(100) DEFAULT '0',
   `employment_status` tinyint(1) NOT NULL DEFAULT '0',
   `blocked` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`js_id`)
@@ -164,9 +184,9 @@ CREATE TABLE IF NOT EXISTS `jobseekers` (
 -- Dumping data for table `jobseekers`
 --
 
-INSERT INTO `jobseekers` (`js_id`, `firstname`, `lastname`, `age`, `gender`, `email`, `profession`, `address`, `password`, `experience_months`, `experience_details`, `education_months`, `education_details`, `employment_status`, `blocked`) VALUES
-(21, 'Rohan', 'Hussain', 21, 0, 'rohanhussain1@yahoo.com', 'Graphics Designer', 'Street 12, House 3, Sahowarwi', '250deaf1cdd5387ba66bfc7d8f84824e41becd445afae48a0d01d32ddf2472e8', NULL, NULL, NULL, NULL, 0, 0),
-(22, 'Aliyan', 'Hussain', 19, 0, 'aliyan@email.com', 'Graphics Designer', 'Street 12, House 3, Sahowarwi', '250deaf1cdd5387ba66bfc7d8f84824e41becd445afae48a0d01d32ddf2472e8', NULL, NULL, NULL, NULL, 0, 0);
+INSERT INTO `jobseekers` (`js_id`, `firstname`, `lastname`, `age`, `gender`, `email`, `profession`, `address`, `password`, `experience`, `education`, `employment_status`, `blocked`) VALUES
+(21, 'Rohan', 'Hussain', 21, 0, 'rohanhussain1@yahoo.com', 'Graphics Designer', 'Street 12, House 3, Sahowarwi', '250deaf1cdd5387ba66bfc7d8f84824e41becd445afae48a0d01d32ddf2472e8', NULL, NULL, 0, 0),
+(22, 'Aliyan', 'Hussain', 19, 0, 'aliyan@email.com', 'Graphics Designer', 'Street 12, House 3, Sahowarwi', '250deaf1cdd5387ba66bfc7d8f84824e41becd445afae48a0d01d32ddf2472e8', NULL, NULL, 0, 0);
 
 -- --------------------------------------------------------
 
