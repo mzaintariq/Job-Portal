@@ -44,8 +44,8 @@ if($password!=$password2) {
           //hashing the password
           $password=hash('sha256', $password);
 
-          $sql = "INSERT INTO `jobseekers` (firstname, lastname, age, gender, email, profession, address, password)
-          VALUES ('$firstname', '$lastname', $age, $gender, '$email', '$profession','$address','$password')";
+          $sql = "INSERT INTO `jobseekers` (firstname, lastname, age, gender, email, profession, address, password, education, experience)
+          VALUES ('$firstname', '$lastname', $age, $gender, '$email', '$profession','$address','$password', $education, $experience)";
           
           if ($conn->query($sql) === TRUE) {
               echo "New record created successfully";

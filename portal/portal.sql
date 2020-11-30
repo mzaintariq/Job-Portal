@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 30, 2020 at 10:01 PM
+-- Generation Time: Nov 30, 2020 at 10:11 PM
 -- Server version: 5.7.31
 -- PHP Version: 7.3.21
 
@@ -173,20 +173,21 @@ CREATE TABLE IF NOT EXISTS `jobseekers` (
   `profession` varchar(100) NOT NULL,
   `address` varchar(500) NOT NULL,
   `password` varchar(150) NOT NULL,
-  `experience` int(100) DEFAULT '0',
-  `education` int(100) DEFAULT '0',
+  `experience` int(100) NOT NULL DEFAULT '0',
+  `education` int(100) NOT NULL DEFAULT '0',
   `employment_status` tinyint(1) NOT NULL DEFAULT '0',
   `blocked` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`js_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `jobseekers`
 --
 
 INSERT INTO `jobseekers` (`js_id`, `firstname`, `lastname`, `age`, `gender`, `email`, `profession`, `address`, `password`, `experience`, `education`, `employment_status`, `blocked`) VALUES
-(21, 'Rohan', 'Hussain', 21, 0, 'rohanhussain1@yahoo.com', 'Graphics Designer', 'Street 12, House 3, Sahowarwi', '250deaf1cdd5387ba66bfc7d8f84824e41becd445afae48a0d01d32ddf2472e8', NULL, NULL, 0, 0),
-(22, 'Aliyan', 'Hussain', 19, 0, 'aliyan@email.com', 'Graphics Designer', 'Street 12, House 3, Sahowarwi', '250deaf1cdd5387ba66bfc7d8f84824e41becd445afae48a0d01d32ddf2472e8', NULL, NULL, 0, 0);
+(21, 'Rohan', 'Hussain', 21, 0, 'rohanhussain1@yahoo.com', 'Graphics Designer', 'Street 12, House 3, Sahowarwi', '250deaf1cdd5387ba66bfc7d8f84824e41becd445afae48a0d01d32ddf2472e8', 0, 0, 0, 0),
+(22, 'Aliyan', 'Hussain', 19, 0, 'aliyan@email.com', 'Graphics Designer', 'Street 12, House 3, Sahowarwi', '250deaf1cdd5387ba66bfc7d8f84824e41becd445afae48a0d01d32ddf2472e8', 0, 0, 0, 0),
+(23, 'Shehryar', 'Asif', 21, 0, 'sherry@yolo.com', 'Artist', 'Somewhere near Bahria', '250deaf1cdd5387ba66bfc7d8f84824e41becd445afae48a0d01d32ddf2472e8', 2, 14, 0, 0);
 
 -- --------------------------------------------------------
 
