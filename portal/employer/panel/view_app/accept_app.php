@@ -14,14 +14,37 @@
 ?>
 
 <?php
-    $sql = "UPDATE `jobs` SET `js_id`=$js_id, `status`=0 WHERE `job_id`=$job_id";
-    $result = mysqli_query($conn,$sql);
-?>
+    $success=true;
+    //this variable will remain true to the end, unless an error occurs
 
-<?php
+    //updating jobs table
+    $sql = "UPDATE `jobs` SET `js_id`=$js_id WHERE `job_id`=$job_id";
+    $result = mysqli_query($conn,$sql);
+    if($result==false) {
+        $success=false;
+    }
+
+    //updating jobseeker's employment status
     $sql = "UPDATE `jobseekers` SET `employment_status`=1 WHERE `js_id`=$js_id";
     $result = mysqli_query($conn,$sql);
-    if ($conn->query($sql) === TRUE) {
+    if($result==false) {
+        $success=false;
+    }
+
+    //updating employments table
+    $sql = "INSERT INTO `employments` (`job_id`,`js_id`,`emp_id`,`status`) VALUES ($job_id,$js_id," . $_SESSION['user'] . ",1)";
+    if(!mysqli_query($conn,$sql)) {
+        $success=false;
+    }
+
+    //deleting the application of the user as it is useless now
+    //this also ensures that the employer doesn't hire the user back again without him applying
+    $sql = "DELETE FROM `applications` WHERE `job_id`=$job_id AND `js_id`=$js_id";
+    if(!mysqli_query($conn,$sql)) {
+        $success=false;
+    }
+
+    if ($success) {
         echo "New record created successfully";
         header("Location:./index.php?success=true");
         die();

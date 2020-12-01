@@ -115,6 +115,9 @@
           $min_exp_req = $row['min_exp_req'];
           $questions = $row['questions'];
           $status = $row['status'];
+
+          $urltitle=urlencode($title);
+          $urlquestions=urlencode($questions);
           // $js_id = $row['js_id'];
           switch($row['type']) {
               case 'ft':
