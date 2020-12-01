@@ -21,6 +21,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/13ad6678d8.js"></script>
     <title>Employer Panel</title>
+    <style>.ptr{cursor:pointer;}</style>
 </head>
 <!-- <head>
     <title>Employer Panel</title>
@@ -33,14 +34,33 @@
     <!-- <p>Creators: Rohan, Zain, and Zahab from LUMS</p> -->
     </div>
 
-    <div class="btn-group btn-group-lg mt-3">
-    <button type="button" onClick="window.location='view_job/index.php';" class="btn btn-success">View Jobs</button>
-    </div> 
 
-    <div class="btn-group btn-group-lg mt-3">
-    <button type="button" onClick="window.location='logout.php';" class="btn btn-primary">Logout</button>
-    <!-- <button type="button" onClick="window.location='./check.php';" class="btn btn-primary">Check</button> -->
-    </div> 
+
+    <div class="card-columns">
+        <!--Browse Jobs-->
+        <div class="card bg-primary ptr" onClick="window.location='view_job/index.php';">
+            <div class="card-body text-center">
+                <p class="card-text text-light">Browse & Apply for Jobs</p>
+            </div>
+        </div>
+
+         <!--View My Jobs-->
+         <div class="card bg-warning ptr" onClick="window.location='my_jobs/index.php';">
+            <div class="card-body text-center">
+                <p class="card-text text-light">View My Jobs</p>
+            </div>
+        </div>
+
+        <!--Logout-->
+        <div class="card bg-danger ptr" onClick="window.location='logout.php';">
+            <div class="card-body text-center">
+                <p class="card-text text-light">Logout</p>
+            </div>
+        </div>
+
+    </div>
+
+    
 </div>
 
 </body>
