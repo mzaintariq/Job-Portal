@@ -5,7 +5,7 @@
         
         $email=$_POST['email'];
 
-
+        
         //check if at least the email is correct
         $sql2 = "SELECT `js_id` FROM `jobseekers` WHERE `email`='$email' LIMIT 0,1";
         $result2 = mysqli_query($conn,$sql2);
@@ -94,12 +94,25 @@
 
             header('Location:login.php?invalidcredentials=1');
         } else {
+            //login successful
             $row=mysqli_fetch_assoc($result);
             $id=$row['js_id'];
-            session_start();
-            $_SESSION['user']=$id;
-            $_SESSION['type']='jobseeker';
-            header('Location:./panel');
+
+            //just checking if the user is blocked by admin or not
+            $userBlocked = "SELECT `blocked` FROM `jobseekers` WHERE `js_id`=$id LIMIT 0,1";
+            $result = mysqli_query($conn,$userBlocked);
+            $row=mysqli_fetch_assoc($result);
+
+            if($row['blocked']==1) {
+                header('Location:login.php?blocked=1');
+                die();
+            } else {
+                session_start();
+                $_SESSION['user']=$id;
+                $_SESSION['type']='jobseeker';
+                header('Location:./panel');
+            }
+
         }
 
     } else {
@@ -132,7 +145,9 @@
         $emailClass='is-invalid';
     } else if (isset($_GET['connectionfailed'])) {
             $error="<p class='bg-danger text-light'>Database connection failed.</p>";
-        }
+    } else if (isset($_GET['blocked']) && $_GET['blocked']==1) {
+        $error="<p class='bg-danger text-light'>An admin blocked your account. Contact admins for resolution.</p>";
+    }
     ?>
 
 </head>
