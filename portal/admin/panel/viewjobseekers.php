@@ -9,8 +9,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/13ad6678d8.js"></script>
 
-    <script src='blockEmployer.js'></script>
-    <title>View All Employees - Admin</title>
+    <script src='blockJobseeker.js'></script>
+    <title>View All Jobseekers - Admin</title>
 </head>
 <body>
 
@@ -18,8 +18,8 @@
 
 <div class='container mt-4'>
 
-<h1 class='mb-4'><i class="fas fa-users"></i> All Employers</h1>
-<small>The rows shown in red are employees that are blocked.</small>
+<h1 class='mb-4'><i class="fas fa-users"></i> All Jobseekers</h1>
+<small>The rows shown in red are jobseekers that are blocked.</small>
 <?php
 
 require('../admin_verify.php');
@@ -30,7 +30,7 @@ require('../../connect.php');
       $_GET['page']=1;
   $upperLimit = $_GET['page']*20;
   //we will display 20 employers per page
-  $sql = "SELECT * FROM `employers` WHERE 1 LIMIT 0," . $upperLimit;
+  $sql = "SELECT * FROM `jobseekers` WHERE 1 LIMIT 0," . $upperLimit;
   $result = mysqli_query($conn,$sql);
   if($result==false) {
       echo "<div class='card bg-danger text-white'>
@@ -48,8 +48,9 @@ require('../../connect.php');
       <td>Age</td>
       <td>Gender</td>
       <td>Email</td>
-      <td>Company</td>
+      <td>Profession</td>
       <td>Address</td>
+      <td>Status</td>
       <td>Action</td>
       </tr></thead>";
       
@@ -82,13 +83,17 @@ require('../../connect.php');
               break;
           }
 
+          $status='Unemployed';
+          if($row['employment_status']==1) {
+            $status='Employed';
+          }
           echo "<tr class='" . $class . "'><td>" . $row['firstname'] . ' ' . $row['lastname'] . "</td>"
             . "<td>" . $row['age'] . "</td>"
             . "<td>" . $gender . "</td>"
             . "<td>" . $row['email'] . "</td>"
-            . "<td>" . $row['companyname'] . "</td>"
-            . "<td>" . $row['address'] . "</td>"
-            . "<td><a onClick='blockEmployer(" . $row['emp_id'] . ")' class='btn btn-link'>"
+            . "<td>" . $row['profession'] . "</td>"
+            . "<td>" . $row['address'] . "</td><td>" . $status . "</td>"
+            . "<td><a onClick='blockJobseeker(" . $row['js_id'] . ")' class='btn btn-link'>"
             . "<i class='fas fa-user" . $icon . "'></i> " . $pretext . "lock</a>"
             . "</td></tr>";
       }
@@ -125,7 +130,7 @@ require('../../connect.php');
         
         <!-- Modal body -->
         <div class="modal-body" id='modalBody'>
-          Employer blocked. Refresh this page to review the table.
+          Jobseeker blocked. Refresh this page to review the table.
         </div>
         
         <!-- Modal footer -->
