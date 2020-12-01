@@ -51,14 +51,14 @@
                 <td><b>Job ID</b></td>
                 <td><b>Statement</b></td>
                 <td><b>Answers</b></td>
+                <td><b>Profile</b></td>
                 <!-- <td><b>Apply</b></td> -->
             </tr>
         </thead>
         <?php
 
-        // WHERE emp_id = '". $_SESSION["user"]."'"
+
         $sql2 = "SELECT * FROM `applications` WHERE job_id = '". $_GET["job_id"]."'";
-        // $sql2 = "SELECT * FROM `applications`";
         $result2 = mysqli_query($conn,$sql2);
         while($row2 = mysqli_fetch_assoc($result2))
         {
@@ -74,6 +74,7 @@
             print "<td>" . $job_id . "</td>";
             print "<td>" . $statement . "</td>";
             print "<td>" . $answers . "</td>";
+            print "<td><a href='emp_prof.php?job_id=" . $job_id . "&js_id=" . $js_id . "&app_id=" . $app_id . "'>View</a></td>";
             // $urltitle = urlencode($title);
             // $urlquestions = urlencode($questions);
             // print "<td><a href='apps.php?job_id=" . $job_id . "&title=" . $urltitle . "&questions=" . $urlquestions . "'>Apply</a></td>";

@@ -41,6 +41,13 @@
 
     <script src='changeStatus.js'></script>
     <title>View All Posts - Employee</title>
+
+    <?php
+        if (isset($_GET['success']) && $_GET['success']==TRUE) {
+            $error="Application accepted successfully";
+        }
+    ?>
+
 </head>
 <body>
 
@@ -80,6 +87,7 @@
       <td><b>Minimum Age</b></td>
       <td><b>Minimum Experience</b></td>
       <td><b>Questions</b></td>
+      <td><b>Employee</b></td>
       <td><b>Applications</b></td>
       <td><b>Status</b></td>
       </tr></thead>";
@@ -107,7 +115,7 @@
           $min_exp_req = $row['min_exp_req'];
           $questions = $row['questions'];
           $status = $row['status'];
-          $js_id = $row['js_id'];
+          // $js_id = $row['js_id'];
           switch($row['type']) {
               case 'ft':
                   $type='Full Time';
@@ -121,6 +129,12 @@
                   $type='Unknown';
               break;
           }
+          if ($row['js_id'] == NULL) {
+            $js_id='None';
+          }
+          else {
+            $js_id = $row['js_id'];
+          }
 
           echo "<tr class='" . $class . "'><td>" . $title . "</td>"
             . "<td>" . $description . "</td>"
@@ -131,6 +145,7 @@
             . "<td>" . $min_age_req . "</td>"
             . "<td>" . $min_exp_req . "</td>"
             . "<td>" . $questions . "</td>"
+            . "<td>" . $js_id . "</td>"
             . "<td><a href='apps.php?job_id=" . $job_id . "&title=" . $urltitle . "&questions=" . $urlquestions . "'>View</a></td>"
             // . "<td>" . $min_age_req . "</td>"
 
