@@ -27,94 +27,161 @@
        
 ?>
 
+
 <!DOCTYPE html>
 <html>
 <head>
+
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/13ad6678d8.js"></script>
-    <title>Employer Panel</title>
+
+    <script src='changeStatus.js'></script>
+    <title>View All Posts - Employee</title>
 </head>
-<!-- <head>
-    <title>Employer Panel</title>
-</head> -->
 <body>
-<div class='container pt-5'>
-    <div class="jumbotron">
-    <h1>Welcome<?php echo $prename . ' ' . $name; ?></h1>
-    <h1>ID:<?php echo ' ' . $_SESSION['user']; ?></h1>
-    <h1>My Posts:</h1>
 
-    
-    <!-- <p>Creators: Rohan, Zain, and Zahab from LUMS</p> -->
+
+
+<div class='container mt-4'>
+<h1>Welcome<?php echo $prename . ' ' . $name; ?></h1>
+<h1 class='mb-4'><i class="fas fa-users"></i> All Job Posts</h1>
+<small>The rows shown in red are jobs that are inactive.</small>
+<?php
+
+
+  if(!isset($_GET['page']))
+      $_GET['page']=1;
+  $upperLimit = $_GET['page']*20;
+  //we will display 20 employers per page
+  $sql = "SELECT * FROM `jobs` WHERE emp_id = '". $_SESSION["user"]."'";
+  $result = mysqli_query($conn,$sql);
+  if($result==false) {
+      echo "<div class='card bg-danger text-white'>
+                  <div class='card-body'>Query Failed</div>
+              </div>";
+  }
+  else if(mysqli_num_rows($result)==0) {
+      echo "<div class='card bg-danger text-white'>
+                  <div class='card-body'>No Job Posts Exist</div>
+              </div>";
+  } else {
+      echo "<table class='table table-hover'>";
+      echo "<thead><tr>
+      <td><b>Title</b></td>
+      <td><b>Description</b></b></td>
+      <td><b>Type</b></td>
+      <td><b>Mode</b></td>
+      <td><b>Location</b></td>
+      <td><b>Salary</b></td>
+      <td><b>Minimum Age</b></td>
+      <td><b>Minimum Experience</b></td>
+      <td><b>Questions</b></td>
+      <td><b>Applications</b></td>
+      <td><b>Status</b></td>
+      </tr></thead>";
+      
+
+      while($row=mysqli_fetch_assoc($result)) {
+          $class='';
+          $pretext='Active';
+          $icon='-slash';
+          $gender;
+          if($row['status']==0) {
+              $class="table-danger";
+              $pretext='Inactive';
+              $icon='';
+          }
+          $job_id = $row['job_id'];
+          $emp_id = $row['emp_id'];
+          $title = $row['title'];
+          $description = $row['description'];
+          $mode = $row['mode'];
+          $location = $row['location'];
+          $salary = $row['salary'];
+          $min_age_req = $row['min_age_req'];
+          $min_edu_req = $row['min_edu_req'];
+          $min_exp_req = $row['min_exp_req'];
+          $questions = $row['questions'];
+          $status = $row['status'];
+          $js_id = $row['js_id'];
+          switch($row['type']) {
+              case 'ft':
+                  $type='Full Time';
+              break;
+              
+              case 'pt':
+                  $type='Part Time';
+              break;
+
+              default:
+                  $type='Unknown';
+              break;
+          }
+
+          echo "<tr class='" . $class . "'><td>" . $title . "</td>"
+            . "<td>" . $description . "</td>"
+            . "<td>" . $type . "</td>"
+            . "<td>" . $mode . "</td>"
+            . "<td>" . $location . "</td>"
+            . "<td>" . $salary . "</td>"
+            . "<td>" . $min_age_req . "</td>"
+            . "<td>" . $min_exp_req . "</td>"
+            . "<td>" . $questions . "</td>"
+            . "<td><a href='apps.php?job_id=" . $job_id . "&title=" . $urltitle . "&questions=" . $urlquestions . "'>View</a></td>"
+            // . "<td>" . $min_age_req . "</td>"
+
+            . "<td><a onClick='changeStatus(" . $row['job_id'] . ")' class='btn btn-link'>"
+            . "<i></i> " . $pretext . "</a>"
+            // . "<i class='fas fa-user" . $icon . "'></i> " . $pretext . "</a>"
+            . "</td></tr>";
+      }
+
+      echo "</table>";
+  }
+
+
+?>
+
+<div id='error'></p>
+</div>
+
+
+<!--MODAL CODE STARTING-->
+<!-- Button to Open the Modal -->
+<button type="button" id="modalButton" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="display:none;">
+    Open modal
+  </button>
+
+  <!-- The Modal -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title" id='modelTitle'>Success</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body" id='modalBody'>
+          Job Status Changed. Refresh this page to review the table.
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal" id='closeModal'>Close</button>
+        </div>
+        
+      </div>
     </div>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <td><b>Title</b></td>
-                <td><b>Description</b></td>
-                <td><b>Type</b></td>
-                <td><b>Mode</b></td>
-                <td><b>Location</b></td>
-                <td><b>Salary</b></td>
-                <td><b>Minimum Age</b></td>
-                <td><b>Minimum Eductation</b></td>
-                <td><b>Minimum Experience</b></td>
-                <td><b>Questions</b></td>
-                <!-- <td><b>Status</b></td> -->
-                <td><b>Applications</b></td>
-            </tr>
-        </thead>
-        <?php
-
-        $sql2 = "SELECT * FROM `jobs` WHERE emp_id = '". $_SESSION["user"]."'";
-        // $sql2 = "SELECT * FROM `jobs`";
-        $result2 = mysqli_query($conn,$sql2);
-        while($row2 = mysqli_fetch_assoc($result2))
-        {
-            $job_id = $row2['job_id'];
-            $emp_id = $row2['emp_id']; 
-            $title = $row2['title'];
-            $description = $row2['description'];
-            $type = $row2['type'];
-            $mode = $row2['mode'];
-            $location = $row2['location'];
-            $salary = $row2['salary'];
-            $min_age_req = $row2['min_age_req'];
-            $min_edu_req = $row2['min_edu_req'];
-            $min_exp_req = $row2['min_exp_req'];
-            $questions = $row2['questions'];
-            $blocked = $row2['blocked'];
-            $js_id = $row2['js_id'];
-
-        print "<tr>";
-            print "<td>" . $title . "</td>";
-            print "<td>" . $description . "</td>";
-            print "<td>" . $type . "</td>";
-            print "<td>" . $mode . "</td>";
-            print "<td>" . $location . "</td>";
-            print "<td>" . $salary . "</td>";
-            print "<td>" . $min_age_req. "</td>";
-            print "<td>" . $min_edu_req . "</td>";
-            print "<td>" . $min_exp_req . "</td>";
-            print "<td>" . $questions . "</td>";
-            // print "<td><button>Active</button><td>";
-            // print "<td><a href='active.php?job_id=" . $job_id . "'>Active</a></td>";
-            $urltitle = urlencode($title);
-            $urlquestions = urlencode($questions);
-            print "<td><a href='apps.php?job_id=" . $job_id . "&title=" . $urltitle . "&questions=" . $urlquestions . "'>View</a></td>";
-        print "</tr>";
-        }
-        ?>
-    </table>
-
-    
-
-    <div class="btn-group btn-group-lg mt-3">
+  </div>
+  
+  <div class="btn-group btn-group-lg mt-3">
     <button type="button" onClick="window.location='../index.php';" class="btn btn-success">Back</button>
     <!-- <button type="button" onClick="window.location='./check.php';" class="btn btn-primary">Check</button> -->
     </div>
@@ -123,7 +190,6 @@
     <button type="button" onClick="window.location='../logout.php';" class="btn btn-primary">Logout</button>
     <!-- <button type="button" onClick="window.location='./check.php';" class="btn btn-primary">Check</button> -->
     </div> 
-</div>
 
 </body>
 </html>
