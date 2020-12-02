@@ -76,6 +76,7 @@
                 <td><b>Gender</b></td>
                 <td><b>Email</b></td>
                 <td><b>Profession</b></td>
+                <td><b>Employment Status</b></td>
                 <!-- <td><b>Experience</b></td>
                 <td><b>Education</b></td> -->
             </tr>
@@ -92,11 +93,38 @@
             $firstname = $row2['firstname']; 
             $lastname = $row2['lastname'];
             $age = $row2['age'];
-            $gender = $row2['gender'];
+            // $gender = $row2['gender'];
+            switch($row2['gender']) {
+                case 0:
+                    $gender='Male';
+                break;
+                
+                case 1:
+                    $gender='Female';
+                break;
+    
+                default:
+                    $gender='Unknown';
+                break;
+            }
             $email = $row2['email'];
             $profession = $row2['profession'];
             $experience_months = $row2['experience'];
             $education_months = $row2['education'];
+            // $employment_status = $row2['employment_status'];
+            switch($row2['employment_status']) {
+                case 0:
+                    $employment_status='Not Employed';
+                break;
+                
+                case 1:
+                    $employment_status='Employed';
+                break;
+    
+                default:
+                    $employment_status='Unknown';
+                break;
+            }
 
         print "<tr>";
             print "<td>" . $js_id . "</td>";
@@ -106,6 +134,7 @@
             print "<td>" . $gender . "</td>";
             print "<td>" . $email . "</td>";
             print "<td>" . $profession. "</td>";
+            print "<td>" . $employment_status. "</td>";
             // print "<td>" . $experience_months . "</td>";
             // print "<td>" . $education_months . "</td>";
             // $urltitle = urlencode($title);
