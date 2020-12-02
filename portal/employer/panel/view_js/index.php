@@ -24,6 +24,7 @@
     //         $errorClass='alert-danger';
     //     }
     // }
+    $name = $_POST['search'];
        
 ?>
 
@@ -46,13 +47,24 @@
     <div class="jumbotron">
     <h1>Welcome<?php echo $prename . ' ' . $name; ?></h1>
     <h1>ID:<?php echo ' ' . $_SESSION['user']; ?></h1>
-    <h1>Job Seekers:</h1>
-
-    
+    <h1>Job Seekers:</h1>    
     <!-- <p>Creators: Rohan, Zain, and Zahab from LUMS</p> -->
     </div>
 
-    
+    <form method="post" action="index.php">
+        <div class="input-group mb-3">
+                <input class="form-control" type="text" name="search" placeholder="Search"/>
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit">Search</button>
+                    <!-- <input type="submit" value="Search"/> -->
+                </div>
+        </div>
+    </form>
+    <form method="post" action="index.php">
+        <button class="btn btn-outline-secondary" type="submit">Reset Search</button>
+        <!-- <input type="submit" value="Reset"/> -->
+    </form>
+
 
     <table class="table">
         <thead>
@@ -71,7 +83,8 @@
         <?php
 
         // $sql2 = "SELECT * FROM `jobseekers` WHERE emp_id = '". $_SESSION["user"]."'";
-        $sql2 = "SELECT * FROM `jobseekers`";
+        $sql2 = "SELECT * FROM `jobseekers` WHERE firstname LIKE '%{$name}%' OR lastname LIKE '%{$name}%'";
+        // $sql2 = "SELECT * FROM `jobseekers`";
         $result2 = mysqli_query($conn,$sql2);
         while($row2 = mysqli_fetch_assoc($result2))
         {
