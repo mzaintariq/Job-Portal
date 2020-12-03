@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 30, 2020 at 10:11 PM
+-- Generation Time: Dec 03, 2020 at 06:15 PM
 -- Server version: 5.7.31
 -- PHP Version: 7.3.21
 
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `admins` (
 --
 
 INSERT INTO `admins` (`admin_id`, `firstname`, `lastname`, `age`, `email`, `password`, `referral_code`) VALUES
-(1, 'Rohan', 'Hussain', 21, 'rohanhussain1@yahoo.com', '250deaf1cdd5387ba66bfc7d8f84824e41becd445afae48a0d01d32ddf2472e8', 'TCDBDLeaVv'),
+(1, 'Rohan', 'Hussain', 21, 'rohanhussain1@yahoo.com', '250deaf1cdd5387ba66bfc7d8f84824e41becd445afae48a0d01d32ddf2472e8', 'sXoVnZJV6Y'),
 (2, 'Alishba', 'Azam', 21, 'alishbazam24@gmail.com', '250deaf1cdd5387ba66bfc7d8f84824e41becd445afae48a0d01d32ddf2472e8', NULL);
 
 -- --------------------------------------------------------
@@ -63,14 +63,7 @@ CREATE TABLE IF NOT EXISTS `applications` (
   PRIMARY KEY (`app_id`),
   KEY `job_id` (`job_id`),
   KEY `js_id` (`js_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `applications`
---
-
-INSERT INTO `applications` (`app_id`, `js_id`, `job_id`, `statement`, `answers`) VALUES
-(1, 21, 1, 'abcd', 'wtfff');
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -100,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `employers` (
 
 INSERT INTO `employers` (`emp_id`, `firstname`, `lastname`, `age`, `gender`, `email`, `companyname`, `companytype`, `address`, `password`, `blocked`) VALUES
 (19, 'Rohan', 'Hussain', 21, 0, 'rohanhussain1@yahoo.com', 'LUMS', 'Technology', 'Street 12, House 3, Sahowarwi', '250deaf1cdd5387ba66bfc7d8f84824e41becd445afae48a0d01d32ddf2472e8', 0),
-(20, 'Alishba', 'Azam', 21, 1, 'alishbazam24@gmail.com', 'FMH', 'Healthcare', 'Street 12, House 3, Sahowarwi', '250deaf1cdd5387ba66bfc7d8f84824e41becd445afae48a0d01d32ddf2472e8', 0);
+(20, 'Alishba', 'Azam', 21, 1, 'alishbazam24@gmail.com', 'FMH', 'Healthcare', 'Street 12, House 3, Sahowarwi', '250deaf1cdd5387ba66bfc7d8f84824e41becd445afae48a0d01d32ddf2472e8', 1);
 
 -- --------------------------------------------------------
 
@@ -119,7 +112,15 @@ CREATE TABLE IF NOT EXISTS `employments` (
   KEY `emp_id` (`emp_id`),
   KEY `job_id` (`job_id`),
   KEY `js_id` (`js_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `employments`
+--
+
+INSERT INTO `employments` (`employment_id`, `js_id`, `emp_id`, `job_id`, `status`) VALUES
+(25, 21, 19, 2, 1),
+(26, 21, 19, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -147,14 +148,15 @@ CREATE TABLE IF NOT EXISTS `jobs` (
   PRIMARY KEY (`job_id`),
   KEY `emp_id` (`emp_id`),
   KEY `js_id` (`js_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `jobs`
 --
 
 INSERT INTO `jobs` (`job_id`, `emp_id`, `title`, `description`, `type`, `mode`, `location`, `salary`, `min_age_req`, `min_edu_req`, `min_exp_req`, `questions`, `blocked`, `js_id`, `status`) VALUES
-(1, 19, 'Graphics Designer', 'abracadabra', 'pt', 'online', 'Somewhere on Earth', 20000, 18, 4, 1, 'Do you know Illustrator?', 0, NULL, 1);
+(1, 19, 'Graphics Designer', 'abracadabra', 'pt', 'online', 'Somewhere on Earth', 20000, 18, 4, 1, 'Do you know Illustrator?', 0, 21, 1),
+(2, 19, 'Kisser', 'hahaha', 'ft', 'online', 'Somewhere on Earth', 45, 15, 2, 2, 'How you doin', 0, 21, 1);
 
 -- --------------------------------------------------------
 
@@ -185,9 +187,9 @@ CREATE TABLE IF NOT EXISTS `jobseekers` (
 --
 
 INSERT INTO `jobseekers` (`js_id`, `firstname`, `lastname`, `age`, `gender`, `email`, `profession`, `address`, `password`, `experience`, `education`, `employment_status`, `blocked`) VALUES
-(21, 'Rohan', 'Hussain', 21, 0, 'rohanhussain1@yahoo.com', 'Graphics Designer', 'Street 12, House 3, Sahowarwi', '250deaf1cdd5387ba66bfc7d8f84824e41becd445afae48a0d01d32ddf2472e8', 0, 0, 0, 0),
+(21, 'Rohan', 'Hussain', 21, 0, 'rohanhussain1@yahoo.com', 'Graphics Designer', 'Street 12, House 3, Sahowarwi', '250deaf1cdd5387ba66bfc7d8f84824e41becd445afae48a0d01d32ddf2472e8', 0, 0, 1, 0),
 (22, 'Aliyan', 'Hussain', 19, 0, 'aliyan@email.com', 'Graphics Designer', 'Street 12, House 3, Sahowarwi', '250deaf1cdd5387ba66bfc7d8f84824e41becd445afae48a0d01d32ddf2472e8', 0, 0, 0, 0),
-(23, 'Shehryar', 'Asif', 21, 0, 'sherry@yolo.com', 'Artist', 'Somewhere near Bahria', '250deaf1cdd5387ba66bfc7d8f84824e41becd445afae48a0d01d32ddf2472e8', 2, 14, 0, 0);
+(23, 'Shehryar', 'Asif', 21, 0, 'sherry@yolo.com', 'Artist', 'Somewhere near Bahria', '250deaf1cdd5387ba66bfc7d8f84824e41becd445afae48a0d01d32ddf2472e8', 2, 14, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -234,8 +236,8 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   PRIMARY KEY (`notif_id`),
   KEY `emp_id` (`emp_id`),
   KEY `js_id` (`js_id`),
-  KEY `app_id` (`app_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY `notifications_ibfk_3` (`app_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 
 --
 -- Constraints for dumped tables
@@ -245,8 +247,8 @@ CREATE TABLE IF NOT EXISTS `notifications` (
 -- Constraints for table `applications`
 --
 ALTER TABLE `applications`
-  ADD CONSTRAINT `applications_ibfk_1` FOREIGN KEY (`job_id`) REFERENCES `jobs` (`job_id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `applications_ibfk_2` FOREIGN KEY (`js_id`) REFERENCES `jobseekers` (`js_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `applications_ibfk_1` FOREIGN KEY (`job_id`) REFERENCES `jobs` (`job_id`),
+  ADD CONSTRAINT `applications_ibfk_2` FOREIGN KEY (`js_id`) REFERENCES `jobseekers` (`js_id`);
 
 --
 -- Constraints for table `employments`
@@ -277,7 +279,7 @@ ALTER TABLE `login_attempts_log`
 ALTER TABLE `notifications`
   ADD CONSTRAINT `notifications_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `employers` (`emp_id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `notifications_ibfk_2` FOREIGN KEY (`js_id`) REFERENCES `jobseekers` (`js_id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `notifications_ibfk_3` FOREIGN KEY (`app_id`) REFERENCES `applications` (`app_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `notifications_ibfk_3` FOREIGN KEY (`app_id`) REFERENCES `applications` (`app_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
