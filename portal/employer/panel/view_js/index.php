@@ -78,6 +78,7 @@
                 <td><b>Email</b></td>
                 <td><b>Profession</b></td>
                 <td><b>Employment Status</b></td>
+                <td><b>Actions</b></td>
                 <!-- <td><b>Experience</b></td>
                 <td><b>Education</b></td> -->
             </tr>
@@ -131,21 +132,22 @@
                 break;
             }
 
-        print "<tr>";
-            print "<td>" . $js_id . "</td>";
-            print "<td>" . $firstname . "</td>";
-            print "<td>" . $lastname . "</td>";
-            print "<td>" . $age . "</td>";
-            print "<td>" . $gender . "</td>";
-            print "<td>" . $email . "</td>";
-            print "<td>" . $profession. "</td>";
-            print "<td>" . $employment_status. "</td>";
-            // print "<td>" . $experience_months . "</td>";
-            // print "<td>" . $education_months . "</td>";
+        echo "<tr>";
+            echo "<td>" . $js_id . "</td>";
+            echo "<td>" . $firstname . "</td>";
+            echo "<td>" . $lastname . "</td>";
+            echo "<td>" . $age . "</td>";
+            echo "<td>" . $gender . "</td>";
+            echo "<td>" . $email . "</td>";
+            echo "<td>" . $profession. "</td>";
+            echo "<td>" . $employment_status. "</td>";
+            echo "<td><button type='button' class='btn btn-link' onClick=\"window.location='viewprofile.php?js_id=" . $js_id . "'\">View Profile</button></td>";
+            // echo "<td>" . $experience_months . "</td>";
+            // echo "<td>" . $education_months . "</td>";
             // $urltitle = urlencode($title);
             // $urlquestions = urlencode($questions);
-            // print "<td><a href='apps.php?job_id=" . $job_id . "&title=" . $urltitle . "&questions=" . $urlquestions . "'>View</a></td>";
-        print "</tr>";
+            // echo "<td><a href='apps.php?job_id=" . $job_id . "&title=" . $urltitle . "&questions=" . $urlquestions . "'>View</a></td>";
+        echo "</tr>";
         }
         ?>
     </table>
