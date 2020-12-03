@@ -14,6 +14,13 @@
   
     $error='';
     $errorClass='';
+    if(isset($_GET['success']) && $_GET['success']==1) {
+        $error="<i class=\"fas fa-check-circle\"></i> Your job invite has successfully been sent to the Job Seeker. You will receive a notification if and when he accepts it.";
+        $errorClass='alert-success';
+    } else if (isset($_GET['success']) && $_GET['success']!=1) {
+        $error="<i class=\"fas fa-times-circle\"></i> Job invite could not be sent. Try again.";
+        $errorClass='alert-danger';
+    }
 ?>
 
 
@@ -70,7 +77,7 @@
             $job_id = $row2['job_id'];
             $statement = $row2['statement'];
             $answers = $row2['answers'];
-            $emp_id = $_GET["emp_id"];
+            $emp_id = $_SESSION["user"];
 
         print "<tr>";
             print "<td>" . $app_id . "</td>";

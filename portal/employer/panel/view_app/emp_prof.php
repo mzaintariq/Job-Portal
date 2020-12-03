@@ -26,27 +26,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/13ad6678d8.js"></script>
-    <title>Employer Panel</title>
+    <title>View Jobseeker Profile - Employer Panel</title>
 </head>
-<!-- <head>
-    <title>Employer Panel</title>
-</head> -->
+
 <body>
 <div class='container pt-5'>
     <div class="jumbotron">
         <h1>Job: <?php echo $_GET["job_id"]; ?></h1>
         <h2>Application # <?php echo $_GET["app_id"]; ?></h2>
-        <h3>Details Below</h3>
+        
 
     </div>
 
     <div class="alert <?php echo $errorClass; ?>" role="alert">
         <?php echo $error; ?>   <!--display the error message that came after user applied for job-->
     </div>
-
+    
 
     <?php
-        $sql2 = "SELECT * FROM `jobseekers` WHERE js_id = '". $_GET["js_id"]."'";
+        $sql2 = "SELECT * FROM `jobseekers` WHERE js_id = '" . $_GET["js_id"]."'";
         $result2 = mysqli_query($conn,$sql2);
         $row2 = mysqli_fetch_assoc($result2);
 
@@ -73,13 +71,16 @@
     ?>
 
     <div>
-        <h2>Name: <b><?php echo $firstname . ' ' . $lastname; ?></b></h2>
-        <h2>Age: <b><?php echo $age; ?></b></h2>
-        <h2>Gender: <b><?php echo $gender; ?></b></h2>
-        <h2>Email: <b><?php echo $email; ?></b></h2>
-        <h2>Profession: <b><?php echo $profession; ?></b></h2>
-        <h2>Experience: <b><?php echo $experience; ?></b></h2>
-        <h2>Education: <b><?php echo $education; ?></b></h2>
+        <table class='table table-dark table-responsive-sm'>
+            <caption>User Details</caption>
+            <tr><td>Name</td><td><?php echo $firstname . ' ' . $lastname; ?></td></tr>
+            <tr><td>Age</td><td><?php echo $age; ?></td></tr>
+            <tr><td>Gender</td><td><?php echo $gender; ?></td></tr>
+            <tr><td>Email</td><td><?php echo $email; ?></td></tr>
+            <tr><td>Profession</td><td><?php echo $profession; ?></td></tr>
+            <tr><td>Experience</td><td><?php echo $experience; ?></td></tr>
+            <tr><td>Education</td><td><?php echo $education; ?></td></tr>
+        
     </div>
 
     <?php
@@ -91,35 +92,40 @@
         $answers = $row2['answers'];
 
     ?>
+            <tr><td>Statement</td><td><?php echo $statement; ?></td></tr>
+            <tr><td>Answers</td><td><?php echo $answers; ?></td></tr>
 
-    <div>
-        <!-- <h2>Questions: <b><?php echo $title . ' ' . $lastname; ?></b></h2> -->
-        <h2>Statement: <b><?php echo $statement; ?></b></h2>
-        <h2>Answers: <b><?php echo $answers; ?></b></h2>
-    </div>
+                    <form action="send_invite.php" method="post">
+                        <div class='form-group'>
+                            <!--Values-->
+                            <input type="hidden" value="<?php echo $_GET["js_id"]; ?>" name="js_id" />
+                            <input type="hidden" value="<?php echo $_GET["job_id"]; ?>" name="job_id" />
+                            <input type="hidden" value="<?php echo $_GET["emp_id"]; ?>" name="emp_id" />
+                            <input type="hidden" value="<?php echo $_GET["app_id"]; ?>" name="app_id" />
+            <tr><td>Action</td><td><button type="submit" class="form-control btn-success"><i class="fas fa-paper-plane"></i> Send Invite</button></td></tr>
+                            
+                        </div>
+                    </form>
 
-    <form action="accept_app.php" method="post">
+
+            
+        </table>
+    
+        
+
+
+    <!--<form action="accept_app.php" method="post">
         <div class='form-group'>
-            <!--Values-->
+            
             <input type="hidden" value="<?php echo $_GET["js_id"]; ?>" name="js_id" />
             <input type="hidden" value="<?php echo $_GET["job_id"]; ?>" name="job_id" />
             <input type="hidden" value="<?php echo $_GET["app_id"]; ?>" name="app_id" />
 
             <button type="submit" class="form-control btn-success"><i class="fas fa-paper-plane"></i> Accept</button>
         </div>
-    </form>
+    </form>-->
 
-    <form action="send_invite.php" method="post">
-        <div class='form-group'>
-            <!--Values-->
-            <input type="hidden" value="<?php echo $_GET["js_id"]; ?>" name="js_id" />
-            <input type="hidden" value="<?php echo $_GET["job_id"]; ?>" name="job_id" />
-            <input type="hidden" value="<?php echo $_GET["emp_id"]; ?>" name="emp_id" />
-            <input type="hidden" value="<?php echo $_GET["app_id"]; ?>" name="app_id" />
-
-            <button type="submit" class="form-control btn-success"><i class="fas fa-paper-plane"></i> Send Invite</button>
-        </div>
-    </form>
+    
 
     <div class="btn-group btn-group-lg mt-3">
         <!-- <td><a href='apps.php?job_id= . $job_id ."'>Back</a></td> -->
