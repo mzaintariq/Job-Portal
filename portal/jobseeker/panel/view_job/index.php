@@ -73,7 +73,7 @@
         </thead>
         <?php
 
-        $sql2 = "SELECT * FROM `jobs`";
+        $sql2 = "SELECT * FROM `jobs` WHERE `status`=1";
         $result2 = mysqli_query($conn,$sql2);
         while($row2 = mysqli_fetch_assoc($result2))
         {

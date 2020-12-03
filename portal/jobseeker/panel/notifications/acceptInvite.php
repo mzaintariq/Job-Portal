@@ -1,7 +1,8 @@
 <?php
 
-require('../../../connect.php');
 require('../../js_verify.php');
+require('../../../connect.php');
+
 
 if(!isset($_POST['app_id']) || !isset($_POST['notif_id'])) {
     die("Incomplete information.");
@@ -56,12 +57,6 @@ if(!mysqli_query($conn,$sql)) {
 $sql = "DELETE FROM `applications` WHERE `app_id`=$app_id";
 if(!mysqli_query($conn,$sql)) {
     echo $sql;
-    $success=false;
-}
-
-//deleting notification for jobseeker
-$sql = "DELETE FROM `notifications` WHERE `notif_id`=$notif_id";
-if(!mysqli_query($conn,$sql)) {
     $success=false;
 }
 

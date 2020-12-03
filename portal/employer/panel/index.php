@@ -10,6 +10,18 @@
     require('../../prename.php');  
     //this just figures out whether to write "Mr." with the user's name or "Ms." based on their gender
 
+
+    //getting number of notifications
+    $sqlNotif = "SELECT count(`notif_id`) as numNotif FROM `notifications` WHERE `emp_id`=" . $_SESSION['user'];
+    $result = mysqli_query($conn,$sqlNotif);
+    $numNotifications='';
+    if($result==false) {
+        $numNotifications='N/A';
+    } else {
+        $row=mysqli_fetch_assoc($result);
+        $numNotifications=$row['numNotif'];
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -63,6 +75,15 @@
         <div class="card bg-primary ptr"  onClick="window.location='view_employees/index.php';">
             <div class="card-body text-center">
                 <p class="card-text text-light">View My Employees</p>
+            </div>
+        </div>
+
+        <!--View Notifications-->
+        <div class="card bg-info ptr"  onClick="window.location='notifications/index.php';">
+            <div class="card-body text-center">
+                <p class="card-text text-light">View Notifications <span class="badge badge-pill badge-light">
+                <?php echo $numNotifications; ?>
+                </span></p>
             </div>
         </div>
 
