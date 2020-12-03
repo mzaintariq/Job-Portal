@@ -49,9 +49,9 @@
         <?php
             //reading notifications from database
             //this is a natural join
-            $sqlNotif = "SELECT notifications.app_id, notifications.notif_id, notifications.type, notifications.content, employers.firstname, employers.lastname
-            FROM `notifications`,`employers`
-            WHERE notifications.js_id=" . $_SESSION['user'] . " AND employers.emp_id=notifications.emp_id";
+            $sqlNotif = "SELECT notifications.app_id, notifications.notif_id, notifications.type, notifications.content
+            FROM `notifications`
+            WHERE notifications.js_id=" . $_SESSION['user'];
             $result = mysqli_query($conn,$sqlNotif);
 
             if(!$result) {
@@ -68,7 +68,7 @@
                     echo "<tr>
                     <td>Job Invitation</td>
                     <td>" . $row['content'] . "</td>
-                    <td>Employer: " . $row['firstname'] . " " . $row['lastname'] . "</td>
+                    <td></td>
                     <td>
                         <div class='btn-group' role='group' aria-label='Apply or Reject'>
                             <button type='button' class='btn btn-link' onClick='acceptInvite(" . $row['app_id'] . "," . $row['notif_id'] . ");'>Accept</button>

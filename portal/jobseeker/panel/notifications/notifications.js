@@ -6,7 +6,7 @@ function acceptInvite(app_id,notif_id) {
                 $('#modalBody').text("Job Invite Accepted. You are now employed. The notification has been removed now.");
             } else {
                 $('#modalTitle').text("Failure");
-                $('#modalBody').text("Could not perform operation. Please contact admin or try again." + data);
+                $('#modalBody').text("Could not perform operation. Please contact admin or try again.");
                 //$('#error').html(data);
             }
             $('#modalButton').click();
@@ -15,7 +15,7 @@ function acceptInvite(app_id,notif_id) {
 }
 
 function rejectInvite(app_id,notif_id) {
-    $(document).ready(function(){
+    $(document).ready(function() {
         $.post("rejectInvite.php",{app_id:app_id,notif_id:notif_id}, function(data,status) {
             if(status=='success' && data=='done') {
                 $('#modalTitle').text("Success");

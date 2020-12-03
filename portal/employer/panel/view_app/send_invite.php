@@ -28,7 +28,7 @@
 
     $content = $row['firstname'] . " " . $row['lastname'] . " accepted your job application. Do you want to start working on this job?";
     // updating notifications table
-    $sql = "INSERT INTO `notifications` (js_id, emp_id, app_id, type, content) VALUES ('$js_id', '$emp_id', '$app_id', 'jobinvite', '$content')";
+    $sql = "INSERT INTO `notifications` (js_id, emp_id, app_id, type, content) VALUES ('$js_id', NULL, '$app_id', 'jobinvite', '$content')";
     $result = mysqli_query($conn,$sql);
     if($result==false) {
         $success=false;
