@@ -24,8 +24,9 @@
     //         $errorClass='alert-danger';
     //     }
     // }
-    $name = $_POST['search'];
-       
+    if(isset($_POST['search']))
+        $name = $_POST['search'];
+
 ?>
 
 <!DOCTYPE html>
@@ -84,7 +85,11 @@
         <?php
 
         // $sql2 = "SELECT * FROM `jobseekers` WHERE emp_id = '". $_SESSION["user"]."'";
-        $sql2 = "SELECT * FROM `jobseekers` WHERE firstname LIKE '%{$name}%' OR lastname LIKE '%{$name}%'";
+        $sql2='';
+        if(isset($_POST['search']))
+            $sql2 = "SELECT * FROM `jobseekers` WHERE firstname LIKE '%{$name}%' OR lastname LIKE '%{$name}%'";
+        else
+            $sql2 = "SELECT * FROM `jobseekers` WHERE 1";
         // $sql2 = "SELECT * FROM `jobseekers`";
         $result2 = mysqli_query($conn,$sql2);
         while($row2 = mysqli_fetch_assoc($result2))

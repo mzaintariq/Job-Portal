@@ -48,7 +48,7 @@
         <div class="card bg-primary ptr" onClick="generateReferralCode()">
             <div class="card-body text-center">
             <p class="card-text text-light">Generate Referral Code</p>
-            <img id='loader' src='https://i.ibb.co/ph6RM4x/831.gif' style="display:none;">
+            <div class="spinner-border" style='display:none;' id='loader'></div>
             <div id="refDiv" style='display:none;'>
                 <label for="referralCode">Referral Code:</label>
                 <input name="referralCode" class='form-control' id='referralCode'>

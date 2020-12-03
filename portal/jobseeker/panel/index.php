@@ -9,6 +9,17 @@
     require('../../prename.php');  
     //this just figures out whether to write "Mr." with the user's name or "Ms." based on their gender
 
+    //getting number of notifications
+    $sqlNotif = "SELECT count(`notif_id`) as numNotif FROM `notifications` WHERE `js_id`=" . $_SESSION['user'];
+    $result = mysqli_query($conn,$sqlNotif);
+    $numNotifications='';
+    if($result==false) {
+        $numNotifications='N/A';
+    } else {
+        $row=mysqli_fetch_assoc($result);
+        $numNotifications=$row['numNotif'];
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +31,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/13ad6678d8.js"></script>
-    <title>Employer Panel</title>
+    <title>Jobseeker Panel</title>
     <style>.ptr{cursor:pointer;}</style>
 </head>
 <!-- <head>
@@ -44,10 +55,19 @@
             </div>
         </div>
 
-         <!--View My Jobs-->
-         <div class="card bg-warning ptr" onClick="window.location='my_jobs/index.php';">
+        <!--View My Jobs-->
+        <div class="card bg-warning ptr" onClick="window.location='my_jobs/index.php';">
             <div class="card-body text-center">
                 <p class="card-text text-light">View My Jobs</p>
+            </div>
+        </div>
+
+        <!--View My Jobs-->
+        <div class="card bg-info ptr" onClick="window.location='notifications/index.php';">
+            <div class="card-body text-center">
+                <p class="card-text text-light">View Notifications <span class="badge badge-pill badge-light">
+                <?php echo $numNotifications; ?>
+                </span></p>
             </div>
         </div>
 
