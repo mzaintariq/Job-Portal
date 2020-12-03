@@ -37,6 +37,7 @@
         <h1>Job: <?php echo $_GET["job_id"]; ?></h1>
         <h2>Application # <?php echo $_GET["app_id"]; ?></h2>
         <h3>Details Below</h3>
+
     </div>
 
     <div class="alert <?php echo $errorClass; ?>" role="alert">
@@ -98,16 +99,27 @@
     </div>
 
     <form action="accept_app.php" method="post">
-    <div class='form-group'>
-    <!--Values-->
-        <input type="hidden" value="<?php echo $_GET["js_id"]; ?>" name="js_id" />
-        <input type="hidden" value="<?php echo $_GET["job_id"]; ?>" name="job_id" />
-        <input type="hidden" value="<?php echo $_GET["app_id"]; ?>" name="app_id" />
+        <div class='form-group'>
+            <!--Values-->
+            <input type="hidden" value="<?php echo $_GET["js_id"]; ?>" name="js_id" />
+            <input type="hidden" value="<?php echo $_GET["job_id"]; ?>" name="job_id" />
+            <input type="hidden" value="<?php echo $_GET["app_id"]; ?>" name="app_id" />
 
-        <button type="submit" class="form-control btn-success"><i class="fas fa-paper-plane"></i> Accept</button>
-    </div>
-    
-</form>
+            <button type="submit" class="form-control btn-success"><i class="fas fa-paper-plane"></i> Accept</button>
+        </div>
+    </form>
+
+    <form action="send_invite.php" method="post">
+        <div class='form-group'>
+            <!--Values-->
+            <input type="hidden" value="<?php echo $_GET["js_id"]; ?>" name="js_id" />
+            <input type="hidden" value="<?php echo $_GET["job_id"]; ?>" name="job_id" />
+            <input type="hidden" value="<?php echo $_GET["emp_id"]; ?>" name="emp_id" />
+            <input type="hidden" value="<?php echo $_GET["app_id"]; ?>" name="app_id" />
+
+            <button type="submit" class="form-control btn-success"><i class="fas fa-paper-plane"></i> Send Invite</button>
+        </div>
+    </form>
 
     <div class="btn-group btn-group-lg mt-3">
         <!-- <td><a href='apps.php?job_id= . $job_id ."'>Back</a></td> -->

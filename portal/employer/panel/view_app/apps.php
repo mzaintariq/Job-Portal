@@ -37,6 +37,7 @@
     <h1>Welcome<?php echo $prename . ' ' . $name; ?></h1>
     <h1>ID:<?php echo ' ' . $_SESSION['user']; ?></h1>
 
+
     
     <!-- <p>Creators: Rohan, Zain, and Zahab from LUMS</p> -->
     </div>
@@ -69,6 +70,7 @@
             $job_id = $row2['job_id'];
             $statement = $row2['statement'];
             $answers = $row2['answers'];
+            $emp_id = $_GET["emp_id"];
 
         print "<tr>";
             print "<td>" . $app_id . "</td>";
@@ -76,7 +78,7 @@
             print "<td>" . $job_id . "</td>";
             print "<td>" . $statement . "</td>";
             print "<td>" . $answers . "</td>";
-            print "<td><a href='emp_prof.php?job_id=" . $job_id . "&js_id=" . $js_id . "&app_id=" . $app_id . "'>View</a></td>";
+            print "<td><a href='emp_prof.php?job_id=" . $job_id . "&js_id=" . $js_id . "&emp_id=" . $emp_id . "&app_id=" . $app_id . "'>View</a></td>";
             // $urltitle = urlencode($title);
             // $urlquestions = urlencode($questions);
             // print "<td><a href='apps.php?job_id=" . $job_id . "&title=" . $urltitle . "&questions=" . $urlquestions . "'>Apply</a></td>";

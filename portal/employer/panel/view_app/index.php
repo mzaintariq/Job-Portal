@@ -149,7 +149,7 @@
             . "<td>" . $min_exp_req . "</td>"
             . "<td>" . $questions . "</td>"
             . "<td>" . $js_id . "</td>"
-            . "<td><a href='apps.php?job_id=" . $job_id . "&title=" . $urltitle . "&questions=" . $urlquestions . "'>View</a></td>"
+            . "<td><a href='apps.php?job_id=" . $job_id . "&emp_id=" . $emp_id . "'>View</a></td>"
             // . "<td>" . $min_age_req . "</td>"
 
             . "<td><a onClick='changeStatus(" . $row['job_id'] . ")' class='btn btn-link'>"
