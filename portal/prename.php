@@ -3,7 +3,7 @@
             $idType='js_id';
         else
             $idType='emp_id';
-        $sql = "SELECT `firstname`,`gender` FROM `$tableName` WHERE `$idType`=" . $_SESSION['user'] . " LIMIT 0,1";
+        $sql = "SELECT `firstname`,`lastname`,`gender` FROM `$tableName` WHERE `$idType`=" . $_SESSION['user'] . " LIMIT 0,1";
         $result = mysqli_query($conn,$sql);
         $row=mysqli_fetch_assoc($result);
 
@@ -16,5 +16,6 @@
         }
 
         $name=$row['firstname'];
+        $lastname=$row['lastname'];
 
 ?>

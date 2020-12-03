@@ -34,6 +34,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/13ad6678d8.js"></script>
+
+    <!--local script-->
+    <script src='myjobs.js'></script>
     <title>View My Jobs</title>
 </head>
 
@@ -87,7 +90,8 @@
                 
                 echo "<tr><td>" . $row['title'] . "</td><td> " . $row['description'] . "</td>
                 <td>" . $jobType . "</td><td>" . $row['mode'] . "</td><td>" . $row['location'] . "</td>
-                <td>" . $row['salary'] . "</td><td>Resign</td>
+                <td>" . $row['salary'] . "</td>
+                <td><button type='button' class='btn btn-link' onClick='resign(" . $row['job_id'] . ")'>Resign</button></td>
                 </tr>";
 
             }
@@ -97,10 +101,45 @@
         }
 
     ?>
+
+
+
     <ul class="pagination">
        <li class="page-item"><a class="page-link" href="../index.php"><i class="fas fa-angle-left"></i> Go Back</a></li>
        <li class="page-item"><a class="page-link" href="../logout.php"><i class="fas fa-power-off"></i> Logout</a></li>
     </ul>
+
+
+
+
+
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+        <div class="modal-content">
+        
+            <!-- Modal Header -->
+            <div class="modal-header">
+            <h4 class="modal-title" id='modelTitle'>Success</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body" id='modalBody'>
+            
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal" id='closeModal'>Close</button>
+            </div>
+            
+        </div>
+        </div>
+    </div>
+
+    <button id='modalButton' type="button" class="btn btn-info btn-lg" style='display:none;' data-toggle="modal" data-target="#myModal">Open Modal</button>
+
 
 </body>
 </html>

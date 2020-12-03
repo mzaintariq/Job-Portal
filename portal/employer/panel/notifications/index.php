@@ -49,7 +49,7 @@
         <?php
             //reading notifications from database
             //this is a natural join
-            $sqlNotif = "SELECT * FROM `notifications` WHERE `emp_id`=" . $_SESSION['user'];
+            $sqlNotif = "SELECT * FROM `notifications` WHERE `emp_id`=" . $_SESSION['user'] . " ORDER BY `notif_id` DESC";
             $result = mysqli_query($conn,$sqlNotif);
 
             if(!$result) {
@@ -63,11 +63,23 @@
             } else {
                 while($row=mysqli_fetch_assoc($result)) {
                     echo "<tr>
-                    <td>" . $row['type'] . "</td>
-                    <td>" . $row['content'] . "</td>
-                    <td></td>
-                    <td><button type='button' class='btn btn-link' onClick='deleteNotification(0," . $row['notif_id'] . ")'>Delete</button></td>
-                    </tr>";
+                        <td>" . $row['type'] . "</td>
+                        <td>" . $row['content'] . "</td>
+                        <td></td>";
+
+                    if($row['type']!='resignation') {
+                        echo "<td><button type='button' class='btn btn-link' onClick='deleteNotification(0," . $row['notif_id'] . ")'>Delete</button></td>
+                        </tr>";
+
+                    } else {
+                        //the additional details column holds the job_id from which the jobseeker wishes to resign
+                        echo "<td>
+                        <div class='btn-group' role='group' aria-label='Apply or Reject'>
+                            <button type='button' class='btn btn-link' onClick='acceptResignation(" . $row['notif_id'] . "," . $row['additional_details'] . ");'>Accept Resignation</button>
+                            <button type='button' class='btn btn-link' onClick='rejectResignation(" . $row['notif_id'] . ");'>Reject Resignation</button>
+                        </div></td>
+                        </tr>";
+                    }
                 }
             }
         ?>

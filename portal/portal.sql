@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Dec 03, 2020 at 06:15 PM
+-- Generation Time: Dec 03, 2020 at 08:04 PM
 -- Server version: 5.7.31
 -- PHP Version: 7.3.21
 
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `applications` (
   PRIMARY KEY (`app_id`),
   KEY `job_id` (`job_id`),
   KEY `js_id` (`js_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -112,15 +112,7 @@ CREATE TABLE IF NOT EXISTS `employments` (
   KEY `emp_id` (`emp_id`),
   KEY `job_id` (`job_id`),
   KEY `js_id` (`js_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `employments`
---
-
-INSERT INTO `employments` (`employment_id`, `js_id`, `emp_id`, `job_id`, `status`) VALUES
-(25, 21, 19, 2, 1),
-(26, 21, 19, 2, 1);
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -155,8 +147,8 @@ CREATE TABLE IF NOT EXISTS `jobs` (
 --
 
 INSERT INTO `jobs` (`job_id`, `emp_id`, `title`, `description`, `type`, `mode`, `location`, `salary`, `min_age_req`, `min_edu_req`, `min_exp_req`, `questions`, `blocked`, `js_id`, `status`) VALUES
-(1, 19, 'Graphics Designer', 'abracadabra', 'pt', 'online', 'Somewhere on Earth', 20000, 18, 4, 1, 'Do you know Illustrator?', 0, 21, 1),
-(2, 19, 'Kisser', 'hahaha', 'ft', 'online', 'Somewhere on Earth', 45, 15, 2, 2, 'How you doin', 0, 21, 1);
+(1, 19, 'Graphics Designer', 'abracadabra', 'pt', 'online', 'Somewhere on Earth', 20000, 18, 4, 1, 'Do you know Illustrator?', 0, NULL, 1),
+(2, 19, 'Kisser', 'hahaha', 'ft', 'online', 'Somewhere on Earth', 45, 15, 2, 2, 'How you doin', 0, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -187,7 +179,7 @@ CREATE TABLE IF NOT EXISTS `jobseekers` (
 --
 
 INSERT INTO `jobseekers` (`js_id`, `firstname`, `lastname`, `age`, `gender`, `email`, `profession`, `address`, `password`, `experience`, `education`, `employment_status`, `blocked`) VALUES
-(21, 'Rohan', 'Hussain', 21, 0, 'rohanhussain1@yahoo.com', 'Graphics Designer', 'Street 12, House 3, Sahowarwi', '250deaf1cdd5387ba66bfc7d8f84824e41becd445afae48a0d01d32ddf2472e8', 0, 0, 1, 0),
+(21, 'Rohan', 'Hussain', 21, 0, 'rohanhussain1@yahoo.com', 'Graphics Designer', 'Street 12, House 3, Sahowarwi', '250deaf1cdd5387ba66bfc7d8f84824e41becd445afae48a0d01d32ddf2472e8', 0, 0, 0, 0),
 (22, 'Aliyan', 'Hussain', 19, 0, 'aliyan@email.com', 'Graphics Designer', 'Street 12, House 3, Sahowarwi', '250deaf1cdd5387ba66bfc7d8f84824e41becd445afae48a0d01d32ddf2472e8', 0, 0, 0, 0),
 (23, 'Shehryar', 'Asif', 21, 0, 'sherry@yolo.com', 'Artist', 'Somewhere near Bahria', '250deaf1cdd5387ba66bfc7d8f84824e41becd445afae48a0d01d32ddf2472e8', 2, 14, 0, 1);
 
@@ -233,11 +225,12 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   `app_id` int(255) DEFAULT NULL,
   `type` varchar(255) NOT NULL,
   `content` varchar(20000) NOT NULL,
+  `additional_details` int(255) DEFAULT NULL,
   PRIMARY KEY (`notif_id`),
   KEY `emp_id` (`emp_id`),
   KEY `js_id` (`js_id`),
   KEY `notifications_ibfk_3` (`app_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=latin1;
 
 --
 -- Constraints for dumped tables

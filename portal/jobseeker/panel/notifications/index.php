@@ -36,7 +36,7 @@
     <h1>View Notifications</h1>
 </div>
 
-    <button type='button' class='btn btn-warning' onClick=''>Delete All Notifications</button>
+    <button type='button' class='btn btn-warning' onClick='deleteNotification(1,0)'>Delete All Notifications</button>
     <table class='table table-dark'>
         <thead>
             <tr>
@@ -48,10 +48,8 @@
         </thead>
         <?php
             //reading notifications from database
-            //this is a natural join
-            $sqlNotif = "SELECT notifications.app_id, notifications.notif_id, notifications.type, notifications.content
-            FROM `notifications`
-            WHERE notifications.js_id=" . $_SESSION['user'];
+            
+            $sqlNotif = "SELECT * FROM `notifications` WHERE js_id=" . $_SESSION['user'];
             $result = mysqli_query($conn,$sqlNotif);
 
             if(!$result) {
@@ -64,17 +62,25 @@
                     </div>";
             } else {
                 while($row=mysqli_fetch_assoc($result)) {
-                    if($row['type']=='jobinvite')
-                    echo "<tr>
-                    <td>Job Invitation</td>
-                    <td>" . $row['content'] . "</td>
-                    <td></td>
-                    <td>
-                        <div class='btn-group' role='group' aria-label='Apply or Reject'>
-                            <button type='button' class='btn btn-link' onClick='acceptInvite(" . $row['app_id'] . "," . $row['notif_id'] . ");'>Accept</button>
-                            <button type='button' class='btn btn-link' onClick='rejectInvite(" . $row['app_id'] . "," . $row['notif_id'] . ");'>Reject</button>
-                        </div></td>
-                    </tr>";
+                    if($row['type']=='jobinvite') {
+                        echo "<tr>
+                        <td>Job Invitation</td>
+                        <td>" . $row['content'] . "</td>
+                        <td></td>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Apply or Reject'>
+                                <button type='button' class='btn btn-link' onClick='acceptInvite(" . $row['app_id'] . "," . $row['notif_id'] . ");'>Accept</button>
+                                <button type='button' class='btn btn-link' onClick='rejectInvite(" . $row['app_id'] . "," . $row['notif_id'] . ");'>Reject</button>
+                            </div></td>
+                        </tr>";
+                    } else {
+                        echo "<tr>
+                        <td>" . $row['type'] . "</td>
+                        <td>" . $row['content'] . "</td>
+                        <td></td>
+                        <td><button type='button' class='btn btn-link' onClick='deleteNotification(0," . $row['notif_id'] . ")'>Delete</button></td>
+                        </tr>";
+                    }
                 }
             }
         ?>
