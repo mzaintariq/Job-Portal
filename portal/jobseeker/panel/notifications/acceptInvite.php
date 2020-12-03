@@ -53,6 +53,7 @@ if(!mysqli_query($conn,$sql)) {
 
 //deleting the application of the user as it is useless now
 //this also ensures that the employer doesn't hire the user back again without him applying
+//NOTE: due to foreign key constraint, the notification about this app_id will automatically get deleted
 
 $sql = "DELETE FROM `applications` WHERE `app_id`=$app_id";
 if(!mysqli_query($conn,$sql)) {
