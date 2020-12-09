@@ -20,6 +20,15 @@
         $numNotifications=$row['numNotif'];
     }
 
+    $errorClass='';
+    $errorVisibility='none';
+    $error='';
+
+    if(isset($_GET['jobsfull']) && $_GET['jobsfull']==1) {
+        $errorClass='warning';
+        $errorVisibility='block';
+        $error='<i class="fas fa-exclamation-triangle"></i> You are already employed in 2 jobs. You cannot apply to further jobs unless you resign from current jobs.';
+    }
 ?>
 
 <!DOCTYPE html>
@@ -45,7 +54,9 @@
     <!-- <p>Creators: Rohan, Zain, and Zahab from LUMS</p> -->
     </div>
 
-
+    <div class="alert alert-<?php echo $errorClass; ?>" role="alert" style="display:<?php echo $errorVisibility; ?>">
+        <?php echo $error; ?>
+    </div>
 
     <div class="card-columns">
         <!--Browse Jobs-->

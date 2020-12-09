@@ -10,6 +10,15 @@
     //this just figures out whether to write "Mr." with the user's name or "Ms." based on their gender
         
 
+
+    //checking if user already has 2 jobs
+    $sql = "SELECT `employment_id` FROM `employments` WHERE `js_id`=" . $_SESSION['user'];
+    $result = $conn->query($sql);
+    if($result!=false && $result->num_rows>1) {
+        header('Location:../index.php?jobsfull=1');
+        die();
+    }
+
     //once the user has applied for the job in apply.php, the success/failure message
     //is returned to this file through the URL. This following code handles the display of
     //that message.

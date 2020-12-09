@@ -60,54 +60,59 @@
         $row = mysqli_fetch_assoc($result0);
         if($row['employment_status']==0) {
             echo "<div class=\"alert alert-warning\" role=\"alert\"><i class=\"fas fa-exclamation-circle\"></i> You are unemployed.</div>";
-            die();
         }
+        else {
+            $sql = "SELECT * FROM `jobs` WHERE `job_id` IN 
+            (SELECT `job_id` FROM `employments` WHERE `js_id`=" . $_SESSION['user'] . ")";
 
-        $sql = "SELECT * FROM `jobs` WHERE `job_id` IN 
-        (SELECT `job_id` FROM `employments` WHERE `js_id`=" . $_SESSION['user'] . ")";
-
-        $result = mysqli_query($conn,$sql);
-        if($result==false) {
-            die("Query failed.");
-        }
-        if(mysqli_num_rows($result)==0) {
-            echo "<div class=\"alert alert-warning\" role=\"alert\"><i class=\"fas fa-exclamation-circle\"></i> You have no jobs.</div>";
-        } else {
-            $totalSalary=0;
-            echo "<table class='table table-striped'>
-            <tr>
-                <th>Job Title</th>
-                <th>Description</th>
-                <th>Job Type</th>
-                <th>Job Mode</th>
-                <th>Location</th>
-                <th>Salary</th>
-                <th>Action</th>
-            </tr>";
-            while($row=mysqli_fetch_assoc($result)) {
-                $jobType=jobTypeFormat($row['type']);
-                $totalSalary+=$row['salary'];
-                
-                echo "<tr><td>" . $row['title'] . "</td><td> " . $row['description'] . "</td>
-                <td>" . $jobType . "</td><td>" . $row['mode'] . "</td><td>" . $row['location'] . "</td>
-                <td>" . $row['salary'] . "</td>
-                <td><button type='button' class='btn btn-link' onClick='resign(" . $row['job_id'] . ")'>Resign</button></td>
-                </tr>";
-
+            $result = mysqli_query($conn,$sql);
+            if($result==false) {
+                die("Query failed.");
             }
+            if(mysqli_num_rows($result)==0) {
+                echo "<div class=\"alert alert-warning\" role=\"alert\"><i class=\"fas fa-exclamation-circle\"></i> You have no jobs.</div>";
+            } else {
+                $totalSalary=0;
+                echo "<table class='table table-striped'>
+                <tr>
+                    <th>Job Title</th>
+                    <th>Description</th>
+                    <th>Job Type</th>
+                    <th>Job Mode</th>
+                    <th>Location</th>
+                    <th>Salary</th>
+                    <th>Action</th>
+                </tr>";
+                while($row=mysqli_fetch_assoc($result)) {
+                    $jobType=jobTypeFormat($row['type']);
+                    $totalSalary+=$row['salary'];
+                    
+                    echo "<tr><td>" . $row['title'] . "</td><td> " . $row['description'] . "</td>
+                    <td>" . $jobType . "</td><td>" . $row['mode'] . "</td><td>" . $row['location'] . "</td>
+                    <td>" . $row['salary'] . "</td>
+                    <td><button type='button' class='btn btn-link' onClick='resign(" . $row['job_id'] . ")'>Resign</button></td>
+                    </tr>";
 
-            echo "<tr><td></td><td></td><td></td><td></td><td style='color:green;'>Total Salary:</td><td style='color:green;'>" . $totalSalary . "</td><td></td>";
-            echo "</table>";
+                }
+
+                echo "<tr><td></td><td></td><td></td><td></td><td style='color:green;'>Total Salary:</td><td style='color:green;'>" . $totalSalary . "</td><td></td>";
+                echo "</table>";
+            }
         }
 
     ?>
 
 
 
-    <ul class="pagination">
-       <li class="page-item"><a class="page-link" href="../index.php"><i class="fas fa-angle-left"></i> Go Back</a></li>
-       <li class="page-item"><a class="page-link" href="../logout.php"><i class="fas fa-power-off"></i> Logout</a></li>
-    </ul>
+    <div class="btn-group btn-group-lg mt-3">
+    <button type="button" onClick="window.location='../index.php';" class="btn btn-success">Back</button>
+    <!-- <button type="button" onClick="window.location='./check.php';" class="btn btn-primary">Check</button> -->
+    </div>
+
+    <div class="btn-group btn-group-lg mt-3">
+    <button type="button" onClick="window.location='../logout.php';" class="btn btn-primary">Logout</button>
+    <!-- <button type="button" onClick="window.location='./check.php';" class="btn btn-primary">Check</button> -->
+    </div> 
 
 
 

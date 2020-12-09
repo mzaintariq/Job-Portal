@@ -103,4 +103,14 @@
     ?>
     </table>
 
+    <div class="btn-group btn-group-lg mt-3">
+    <button type="button" onClick="window.location='../index.php';" class="btn btn-success">Back</button>
+    <!-- <button type="button" onClick="window.location='./check.php';" class="btn btn-primary">Check</button> -->
+    </div>
+
+    <div class="btn-group btn-group-lg mt-3">
+    <button type="button" onClick="window.location='../logout.php';" class="btn btn-primary">Logout</button>
+    <!-- <button type="button" onClick="window.location='./check.php';" class="btn btn-primary">Check</button> -->
+    </div> 
+
 </body>
