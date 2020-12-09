@@ -24,6 +24,26 @@
             $errorClass='alert-danger';
         }
     }
+
+    $sortBy='';
+    $sortType='';
+    $sortOrNot=false;
+    $selected=array("job_id"=>"selected","salary"=>"","min_age_req"=>"","min_edu_req"=>"","min_exp_req"=>"","DESC"=>"selected","ASC"=>"");
+
+
+    if(isset($_GET['sortBy']) && isset($_GET['sortType'])) {
+        if($_GET['sortBy']!='' && $_GET['sortType']!='' && ($_GET['sortBy']=='job_id' || $_GET['sortBy']=='salary' || $_GET['sortBy']=='min_age_req' || $_GET['sortBy']=='min_edu_req' || $_GET['sortBy']=='min_exp_req')) {
+            $sortBy=$_GET['sortBy'];
+            $sortType=$_GET['sortType'];
+            $sortOrNot=true;
+            $selected['job_id']="";$selected['DESC']="";
+            $selected[$sortBy]="selected";
+            $selected[$sortType]="selected";
+        } else {
+            $error='Invalid sorting criteria.'; //set $error to a message of doom
+            $errorClass='alert-danger';
+        }
+    }
        
 ?>
 
@@ -55,6 +75,29 @@
         <?php echo $error; ?>   <!--display the error message that came after user applied for job-->
     </div>
 
+
+    <!--SORTING-->
+    <form name='form1' class='form-inline' action='index.php' method='get'>
+            <label for='sortBy'>Sort By: </label>
+            <select id='sortBy' name='sortBy' class='form-control'>
+                <option value='job_id' <?php echo $selected['job_id']; ?>>Time Posted</option>
+                <option value='salary' <?php echo $selected['salary']; ?>>Salary</option>
+                <option value='min_age_req' <?php echo $selected['min_age_req']; ?>>Minimum Age Requirement</option>
+                <option value='min_edu_req' <?php echo $selected['min_edu_req']; ?>>Minimum Education Requirement</option>
+                <option value='min_exp_req' <?php echo $selected['min_exp_req']; ?>>Minimum Experience Requirement</option>
+            </select>
+            <div style='width:20px;'></div>
+            <label for='sortType'>Sort Type: </label>
+            <select id='sortType' name='sortType' class='form-control'>
+                <option value='DESC'  <?php echo $selected['DESC']; ?>>Descending</option>
+                <option value='ASC' <?php echo $selected['ASC']; ?>>Ascending</option>
+            </select>
+            <div style='width:20px;'></div>
+            <input type='submit' class='btn btn-primary' value='Sort'>
+    </form>
+    <br>
+
+
     <table class="table">
         <thead>
             <tr>
@@ -73,7 +116,12 @@
         </thead>
         <?php
 
-        $sql2 = "SELECT * FROM `jobs` WHERE `status`=1";
+        $sql2='';
+        if(!$sortOrNot)
+            $sql2 = "SELECT * FROM `jobs` WHERE `status`=1 ORDER BY `job_id` DESC";
+
+        else
+            $sql2 = "SELECT * FROM `jobs` WHERE `status`=1 ORDER BY `$sortBy` $sortType";
         $result2 = mysqli_query($conn,$sql2);
         while($row2 = mysqli_fetch_assoc($result2))
         {
@@ -123,6 +171,18 @@
     <!-- <button type="button" onClick="window.location='./check.php';" class="btn btn-primary">Check</button> -->
     </div> 
 </div>
+
+
+<script>
+    $(document).ready(function(){
+        $('#sortBy').change(function(){
+            $('input[type=submit').click();
+        });
+        $('#sortType').change(function(){
+            $('input[type=submit').click();
+        });
+    });
+</script>
 
 </body>
 </html>
