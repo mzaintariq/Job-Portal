@@ -87,6 +87,13 @@
             </div>
         </div>
 
+        <!--Edit Profile-->
+        <div class="card bg-info ptr"  onClick="window.location='editprofile/index.php';">
+            <div class="card-body text-center">
+                <p class="card-text text-light">Edit My Profile</p>
+            </div>
+        </div>
+
         <!--Logout-->
         <div class="card bg-danger ptr" onClick="window.location='logout.php';">
             <div class="card-body text-center">
