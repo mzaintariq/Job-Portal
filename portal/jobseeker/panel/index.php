@@ -62,12 +62,10 @@
             </div>
         </div>
 
-        <!--View My Jobs-->
-        <div class="card bg-info ptr" onClick="window.location='notifications/index.php';">
+        <!--View Employers-->
+        <div class="card bg-primary ptr"  onClick="window.location='view_employer/index.php';">
             <div class="card-body text-center">
-                <p class="card-text text-light">View Notifications <span class="badge badge-pill badge-light">
-                <?php echo $numNotifications; ?>
-                </span></p>
+                <p class="card-text text-light">View Employers</p>
             </div>
         </div>
 
@@ -77,6 +75,17 @@
                 <p class="card-text text-light">Logout</p>
             </div>
         </div>
+
+        <!--View Notifications-->
+        <div class="card bg-info ptr" onClick="window.location='notifications/index.php';">
+            <div class="card-body text-center">
+                <p class="card-text text-light">View Notifications <span class="badge badge-pill badge-light">
+                <?php echo $numNotifications; ?>
+                </span></p>
+            </div>
+        </div>
+
+        
 
     </div>
 
