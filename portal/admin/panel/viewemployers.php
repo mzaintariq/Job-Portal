@@ -27,10 +27,12 @@ require('../../connect.php');
 
 
   if(!isset($_GET['page']))
-      $_GET['page']=1;
-  $upperLimit = $_GET['page']*20;
+      $_GET['page']=20;
+  $upperLimit = $_GET['page'];
+  $lowerLimit=$upperLimit-20;
+  $totalRows=0;
   //we will display 20 employers per page
-  $sql = "SELECT * FROM `employers` WHERE 1 LIMIT 0," . $upperLimit;
+  $sql = "SELECT * FROM `employers` WHERE 1 LIMIT " . $lowerLimit . "," . $upperLimit;
   $result = mysqli_query($conn,$sql);
   if($result==false) {
       echo "<div class='card bg-danger text-white'>
@@ -39,9 +41,11 @@ require('../../connect.php');
   }
   else if(mysqli_num_rows($result)==0) {
       echo "<div class='card bg-danger text-white'>
-                  <div class='card-body'>No Employer Accounts Exist</div>
+                  <div class='card-body'>No employer accounts exist within this range.</div>
               </div>";
   } else {
+      $totalRows=mysqli_num_rows($result);
+      echo "<p>Displaying 20 of " . mysqli_num_rows($result) . "</p>";
       echo "<table class='table table-hover'>";
       echo "<thead><tr>
       <td>Name</td>
@@ -103,8 +107,13 @@ require('../../connect.php');
 </div>
 
 <ul class="pagination">
-    <li class="page-item"><a class="page-link" href="index.php"><i class="fas fa-angle-left"></i> Go Back</a></li>
-</ul>
+  
+  <li class="page-item"><a class="page-link" href="viewemployers.php?page=<?php if($upperLimit>20) echo $upperLimit-20; else echo 20;?>">Previous 20 Rows</a></li>
+  
+  <?php if ($totalRows>20) { ?>
+  <li class="page-item"><a class="page-link" href="viewemployers.php?page=<?php echo $upperLimit+20; ?>">Next 20 Rows</a></li>
+  <?php } ?>
+</ul> 
 
 <!--MODAL CODE STARTING-->
 <!-- Button to Open the Modal -->

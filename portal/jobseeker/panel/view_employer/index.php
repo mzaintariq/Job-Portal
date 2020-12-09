@@ -116,20 +116,8 @@
             $email = $row2['email'];
             $companyname = $row2['companyname'];
             $companytype = $row2['companytype'];
-            // $employment_status = $row2['employment_status'];
-            switch($row2['employment_status']) {
-                case 0:
-                    $employment_status='Not Employed';
-                break;
-                
-                case 1:
-                    $employment_status='Employed';
-                break;
-    
-                default:
-                    $employment_status='Unknown';
-                break;
-            }
+            
+           
 
         echo "<tr>";
             echo "<td>" . $emp_id . "</td>";
