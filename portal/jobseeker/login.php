@@ -177,6 +177,14 @@
     
 </form>
 
+<div style='text-align:center;width:100%;'>
+    <p>OR</p>
+    <a href='index.php'>Sign Up</a>
+</div>
+<div style='text-align:center;width:100%;'>
+    <a href='../index.html'>Back</a>
+</div>
+
 </div>
 </body>
 

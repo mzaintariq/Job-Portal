@@ -166,6 +166,9 @@
     <div style='width:100%;text-align:center;'>
         <a href='index.php'>Sign Up Instead</a>
     </div>
+    <div style='text-align:center;width:100%;'>
+        <a href='../index.html'>Back</a>
+    </div>
 
 </div>
 </body>

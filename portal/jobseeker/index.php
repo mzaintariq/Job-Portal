@@ -132,5 +132,8 @@
     <p>OR</p>
     <a href='login.php'>Login</a>
 </div>
+<div style='text-align:center;width:100%;'>
+    <a href='../index.html'>Back</a>
+</div>
 </div>
 </body>

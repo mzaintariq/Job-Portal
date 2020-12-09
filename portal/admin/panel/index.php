@@ -65,6 +65,11 @@
             <p class="card-text">View All Jobseekers</p>
             </div>
         </div>
+        <div class="card bg-warning ptr" onClick="window.location='viewjobposts.php';">
+            <div class="card-body text-center">
+            <p class="card-text">View Job Posts</p>
+            </div>
+        </div>
         <div class="card bg-danger ptr" onClick="window.location='logout.php';">
             <div class="card-body text-center">
             <p class="card-text text-light">Logout</p>

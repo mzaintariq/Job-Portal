@@ -74,5 +74,8 @@
     <div style='width:100%;text-align:center;'>
         <a href='login.php'>Login Instead</a>
     </div>
+    <div style='text-align:center;width:100%;'>
+        <a href='../index.html'>Back</a>
+    </div>
 </div>
 </body>
