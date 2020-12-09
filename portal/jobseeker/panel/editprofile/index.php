@@ -1,8 +1,8 @@
 <?php
-    require('../../emp_verify.php');
+    require('../../js_verify.php');
     require('../../../connect.php');
 
-    $tableName='employers';
+    $tableName='jobseekers';
     require('../../../prename.php');
 
 
@@ -35,7 +35,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/13ad6678d8.js"></script>
-    <title>Edit Profile - Employer Panel</title>
+    <title>Edit Profile - Jobseeker Panel</title>
 
     <!--local script-->
     <script src='editProfile.js'></script>
@@ -62,7 +62,7 @@
     </thead>
     <?php
 
-    $sql = "SELECT * FROM `employers` WHERE `emp_id`=" . $_SESSION['user'] . " LIMIT 0,1";
+    $sql = "SELECT * FROM `jobseekers` WHERE `js_id`=" . $_SESSION['user'] . " LIMIT 0,1";
     $result = $conn->query($sql);
 
     if($result!=false && $result->num_rows==1) {
@@ -82,20 +82,20 @@
                 break;
             }
 
-            echo "<tr><td>ID</td><td>" . $row['emp_id'] . "</td>
+            echo "<tr><td>ID</td><td>" . $row['js_id'] . "</td>
                 <td>Fixed</td></tr>";
             echo "<tr><td>FIRSTNAME</td><td id='firstname'>" . $row['firstname'] . "</td>
-                <td><button type='button' class='btn btn-link' onClick=\"editProfile('firstname'," . $row['emp_id'] . ",'" . $row['firstname'] . "')\">Edit</button></td></tr>";
+                <td><button type='button' class='btn btn-link' onClick=\"editProfile('firstname'," . $row['js_id'] . ",'" . $row['firstname'] . "')\">Edit</button></td></tr>";
             echo "<tr><td>LASTNAME</td><td id='lastname'>" . $row['lastname'] . "</td>
-                <td><button type='button' class='btn btn-link' onClick=\"editProfile('lastname'," . $row['emp_id'] . ",'" . $row['lastname'] . "')\">Edit</button></td></tr>";
+                <td><button type='button' class='btn btn-link' onClick=\"editProfile('lastname'," . $row['js_id'] . ",'" . $row['lastname'] . "')\">Edit</button></td></tr>";
             echo "<tr><td>AGE</td><td id='age'>" . $row['age'] . "</td>
-                <td><button type='button' class='btn btn-link' onClick=\"editProfile('age'," . $row['emp_id'] . "," . $row['age'] . ")\"'>Edit</button></td></tr>";
+                <td><button type='button' class='btn btn-link' onClick=\"editProfile('age'," . $row['js_id'] . "," . $row['age'] . ")\"'>Edit</button></td></tr>";
             echo "<tr><td>GENDER</td><td id='gender'>" . $gender . "</td>
-                <td><button type='button' class='btn btn-link' onClick=\"editProfile('gender'," . $row['emp_id'] . ",'" . $gender . "')\">Edit</button></td></tr>";
-            echo "<tr><td>COMPANY</td><td id='company'>" . $row['companyname'] . "</td>
-                <td><button type='button' class='btn btn-link' onClick=\"editProfile('company'," . $row['emp_id'] . ",'" . $row['companyname'] . "')\">Edit</button></td></tr>";
+                <td><button type='button' class='btn btn-link' onClick=\"editProfile('gender'," . $row['js_id'] . ",'" . $gender . "')\">Edit</button></td></tr>";
+            echo "<tr><td>PROFESSION</td><td id='profession'>" . $row['profession'] . "</td>
+                <td><button type='button' class='btn btn-link' onClick=\"editProfile('profession'," . $row['js_id'] . ",'" . $row['profession'] . "')\">Edit</button></td></tr>";
             echo "<tr><td>ADDRESS</td><td id='address'>" . $row['address'] . "</td>
-                <td><button type='button' class='btn btn-link' onClick=\"editProfile('address'," . $row['emp_id'] . ",'" . $row['address'] . "')\">Edit</button></td></tr>";
+                <td><button type='button' class='btn btn-link' onClick=\"editProfile('address'," . $row['js_id'] . ",'" . $row['address'] . "')\">Edit</button></td></tr>";
             echo "<tr><td>EMAIL</td><td id='email'>" . $row['email'] . "</td>
                 <td>Fixed</td></tr>";
         }
