@@ -31,7 +31,7 @@
     $selected=array("job_id"=>"selected","salary"=>"","min_age_req"=>"","min_edu_req"=>"","min_exp_req"=>"","DESC"=>"selected","ASC"=>"");
 
 
-    if(isset($_GET['sortBy']) && isset($_GET['sortType'])) {
+    if(isset($_GET['sortBy']) && isset($_GET['sortType']) ) {
         if($_GET['sortBy']!='' && $_GET['sortType']!='' && ($_GET['sortBy']=='job_id' || $_GET['sortBy']=='salary' || $_GET['sortBy']=='min_age_req' || $_GET['sortBy']=='min_edu_req' || $_GET['sortBy']=='min_exp_req')) {
             $sortBy=$_GET['sortBy'];
             $sortType=$_GET['sortType'];
@@ -42,6 +42,40 @@
         } else {
             $error='Invalid sorting criteria.'; //set $error to a message of doom
             $errorClass='alert-danger';
+        }
+    }
+
+
+    $selected2 = array("selected","","","selected","","","selected","","");
+    $whereClause='';
+    if (isset($_GET['filterBy']) && $_GET['filterBy']!='') {
+        $selected2[0]="";
+        if($_GET['filterBy']=='type') {
+            $selected2[1]="selected";
+            $selected[3]="";
+            if($_GET['typeDetails']=='pt') {
+                $selected2[5]="selected";
+                $whereClause="AND `type`='pt'";
+            } else if ($_GET['typeDetails']=='ft') {
+                $selected2[4]="selected";
+                $whereClause="AND `type`='ft'";
+            } else {
+                $error='Invalid filter criteria.'; //set $error to a message of doom
+                $errorClass='alert-danger';
+            }
+        } else if ($_GET['filterBy']=='mode') {
+            $selected2[2]="selected";
+            $selected2[6]="";
+            if($_GET['modeDetails']=='online') {
+                $selected2[7]="selected";
+                $whereClause="AND `mode`='online'";
+            } else if ($_GET['modeDetails']=='offline') {
+                $selected2[8]="selected";
+                $whereClause="AND `mode`='offline'";
+            } else {
+                $error='Invalid filter criteria.'; //set $error to a message of doom
+                $errorClass='alert-danger';
+            }
         }
     }
        
@@ -57,10 +91,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/13ad6678d8.js"></script>
     <title>Employer Panel</title>
+    <style>.hidden{display:none;}</style>
 </head>
-<!-- <head>
-    <title>Employer Panel</title>
-</head> -->
+
+
 <body>
 <div class='container pt-5'>
     <div class="jumbotron">
@@ -93,11 +127,43 @@
                 <option value='ASC' <?php echo $selected['ASC']; ?>>Ascending</option>
             </select>
             <div style='width:20px;'></div>
-            <input type='submit' class='btn btn-primary' value='Sort'>
+           
+    <br>
+    <!--SORTING ENDS-->
+
+    <!--FILTERS-->
+   
+            <label for='filterBy'>Filter By: </label>
+            <select id='filterBy' name='filterBy' class='form-control'>
+                <option value='' <?php echo $selected2[0]; ?>>--</option>
+                <option value='type' <?php echo $selected2[1]; ?>>Type</option>
+                <option value='mode' <?php echo $selected2[2]; ?>>Mode</option>
+            </select>
+            <div style='width:20px;'></div>
+
+            <div id='typeDetails' 
+            <?php if ($selected2[1]!="selected") echo " class='hidden'"; ?>
+                ><label for='typeDetails'>Job Type: </label>
+                <select id='typeDetailSelect' name='typeDetails' class='form-control'>
+                    <option value=''  <?php echo $selected2[3]; ?>>--</option>
+                    <option value='ft' <?php echo $selected2[4]; ?>>Full Time</option>
+                    <option value='pt' <?php echo $selected2[5]; ?>>Part Time</option>
+                </select>
+            </div>
+
+            <div id='modeDetails' <?php if ($selected2[2]!="selected") echo " class='hidden'"; ?>>
+                <label for='modeDetails'>Job Mode: </label>
+                <select id='modeDetailSelect' name='modeDetails' class='form-control'>
+                    <option value=''  <?php echo $selected2[6]; ?>>--</option>
+                    <option value='online' <?php echo $selected2[7]; ?>>Online</option>
+                    <option value='offline' <?php echo $selected2[8]; ?>>Offline</option>
+                </select>
+            </div>
+            <div style='width:20px;'></div>
+            <input type='submit' class='btn btn-primary' value='Sort/Filter'>
     </form>
     <br>
-
-
+    <!--FILTERS END-->
     <table class="table">
         <thead>
             <tr>
@@ -118,10 +184,10 @@
 
         $sql2='';
         if(!$sortOrNot)
-            $sql2 = "SELECT * FROM `jobs` WHERE `status`=1 ORDER BY `job_id` DESC";
+            $sql2 = "SELECT * FROM `jobs` WHERE `status`=1 $whereClause ORDER BY `job_id` DESC";
 
         else
-            $sql2 = "SELECT * FROM `jobs` WHERE `status`=1 ORDER BY `$sortBy` $sortType";
+            $sql2 = "SELECT * FROM `jobs` WHERE `status`=1 $whereClause ORDER BY `$sortBy` $sortType";
         $result2 = mysqli_query($conn,$sql2);
         while($row2 = mysqli_fetch_assoc($result2))
         {
@@ -139,6 +205,8 @@
             $questions = $row2['questions'];
             $blocked = $row2['blocked'];
             $js_id = $row2['js_id'];
+            if($type=='ft') $type='Full Time';
+            else    $type='Part Time';
 
         print "<tr>";
             print "<td>" . $title . "</td>";
@@ -175,11 +243,14 @@
 
 <script>
     $(document).ready(function(){
-        $('#sortBy').change(function(){
-            $('input[type=submit').click();
-        });
-        $('#sortType').change(function(){
-            $('input[type=submit').click();
+        $('#filterBy').change(function(){
+            if($(this).val()=='type') {
+                $('#modeDetails').fadeOut();
+                $('#typeDetails').fadeIn();
+            } else if ($(this).val()=='mode') {
+                $('#typeDetails').fadeOut();
+                $('#modeDetails').fadeIn();
+            }
         });
     });
 </script>
