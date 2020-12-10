@@ -17,6 +17,16 @@
     $success=true;
     //this variable will remain true to the end, unless an error occurs
 
+    //testing to see if someone is already hired in this job
+    $sql0 = "SELECT `js_id` FROM `jobs` WHERE `job_id`=$job_id";
+    $result=$conn->query($sql0);
+    $row=$result->fetch_assoc();
+    if($row['js_id']!=NULL) {
+        header("Location:./index.php?success=false");
+        die('You already hired someone for this job. Fire that employee first.');
+    }
+    
+
     //updating jobs table
     $sql = "UPDATE `jobs` SET `js_id`=$js_id WHERE `job_id`=$job_id";
     $result = mysqli_query($conn,$sql);

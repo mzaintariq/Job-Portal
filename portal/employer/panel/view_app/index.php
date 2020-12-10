@@ -44,7 +44,9 @@
 
     <?php
         if (isset($_GET['success']) && $_GET['success']==TRUE) {
-            $error="Application accepted successfully";
+            $error="Invite sent successfully";
+        } else if (isset($_GET['success']) && $_GET['success']==FALSE && isset($_GET['hired'])) {
+          $error="You have already hired someone for this job. Please fire that employee first.";
         }
     ?>
 
