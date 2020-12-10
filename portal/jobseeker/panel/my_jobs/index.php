@@ -75,6 +75,8 @@
                 $totalSalary=0;
                 echo "<table class='table table-striped'>
                 <tr>
+                    <th>Employer</th>
+                    <th>Employer Email</th>
                     <th>Job Title</th>
                     <th>Description</th>
                     <th>Job Type</th>
@@ -84,10 +86,15 @@
                     <th>Action</th>
                 </tr>";
                 while($row=mysqli_fetch_assoc($result)) {
+                    $sql0 = "SELECT `firstname`,`lastname`,`email` FROM `employers` WHERE `emp_id`=" . $row['emp_id'];
+                    $result0=$conn->query($sql0);
+                    $row0=$result0->fetch_assoc();
+
+
                     $jobType=jobTypeFormat($row['type']);
                     $totalSalary+=$row['salary'];
                     
-                    echo "<tr><td>" . $row['title'] . "</td><td> " . $row['description'] . "</td>
+                    echo "<tr><td>" . $row0['firstname'] . ' ' . $row0['lastname'] . "</td><td>" . $row0['email'] . "</td><td>" . $row['title'] . "</td><td> " . $row['description'] . "</td>
                     <td>" . $jobType . "</td><td>" . $row['mode'] . "</td><td>" . $row['location'] . "</td>
                     <td>" . $row['salary'] . "</td>
                     <td><button type='button' class='btn btn-link' onClick='resign(" . $row['job_id'] . ")'>Resign</button></td>

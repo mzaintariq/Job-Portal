@@ -25,14 +25,19 @@
 require('../admin_verify.php');
 require('../../connect.php');
 
+//counting total rows
+$sql = "SELECT count(*) AS cnt FROM `jobs` WHERE 1";
+$result = $conn->query($sql);
+$row=$result->fetch_assoc();
+$totalRows=$row['cnt'];
+
 
 if(!isset($_GET['page']))
 $_GET['page']=20;
 $upperLimit = $_GET['page'];
 $lowerLimit=$upperLimit-20;
-$totalRows=0;
 //we will display 20 employers per page
-$sql = "SELECT * FROM `jobs` WHERE 1 LIMIT " . $lowerLimit . "," . $upperLimit;
+$sql = "SELECT * FROM `jobs` WHERE 1 ORDER BY `job_id` ASC LIMIT " . $lowerLimit . ", 20";
   $result = mysqli_query($conn,$sql);
   if($result==false) {
       echo "<div class='card bg-danger text-white'>
@@ -44,8 +49,8 @@ $sql = "SELECT * FROM `jobs` WHERE 1 LIMIT " . $lowerLimit . "," . $upperLimit;
                   <div class='card-body'>No Employer Accounts Exist</div>
               </div>";
   } else {
-    $totalRows=mysqli_num_rows($result);
-    echo "<p>Displaying 20 of " . mysqli_num_rows($result) . "</p>";
+    $n = $lowerLimit+20;
+    echo "<p>Displaying " . $lowerLimit . "-" . $n . " of " . $totalRows . "</p>";
       echo "<table class='table table-hover'>";
       echo "<thead><tr>
       <td>Title</td>

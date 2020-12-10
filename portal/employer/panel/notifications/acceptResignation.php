@@ -6,12 +6,12 @@ require('../../../connect.php');
 $tableName='employers';
 require('../../../prename.php');    //to find out name of employer for sending notification to jobseeker
 
-if(!isset($_GET['job_id']) || !isset($_GET['notif_id'])) {
+if(!isset($_POST['job_id']) || !isset($_POST['notif_id'])) {
     die('Insufficient information.');
 }
-$job_id=$_GET['job_id'];
+$job_id=$_POST['job_id'];
 $jobtitle;
-$notif_id=$_GET['notif_id'];
+$notif_id=$_POST['notif_id'];
 $js_id;
 $success=true;
 
