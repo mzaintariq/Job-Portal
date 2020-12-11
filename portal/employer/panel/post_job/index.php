@@ -12,6 +12,7 @@
     $tableName='employers';
     require('../../../prename.php');  
     //this just figures out whether to write "Mr." with the user's name or "Ms." based on their gender
+
         
 ?>
 
@@ -30,11 +31,16 @@
     $error='';
     $emailClass='';
     $genderClass='';
-        // if (isset($_GET['success']) && $_GET['emailexists']==1) {
-        //     $error="New record created successfully";
-        // }
+    $errorVisibility='none';
+    $errorClass='';
         if (isset($_GET['success']) && $_GET['success']==TRUE) {
             $error="New record created successfully";
+            $errorVisibility='block';
+            $errorClass='success';
+        } else {
+            $error="New record not added.";
+            $errorVisibility='block';
+            $errorClass='danger';
         }
     ?>
 
@@ -45,9 +51,12 @@
 <p class='mt-3'>Welcome <?php echo $prename . ' ' . $name; ?></p>
 <h1 class="mb-4">
     Post a Job
-</h1>
+</h1> 
 
-<?php echo $error; ?> 
+<div class="alert alert-<?php echo $errorClass; ?>" role="alert" style="display:<?php echo $errorVisibility; ?>">
+        <?php echo $error; ?>
+</div>
+
 <form action="job_post.php" method="post">
     <div class='form-group'>
     <!--Employer ID-->
