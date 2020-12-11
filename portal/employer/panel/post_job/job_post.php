@@ -30,7 +30,8 @@
 
     if ($conn->query($sql) === TRUE) {
         echo "New record created successfully";
-        header("Location:./index.php?success=true");
+        echo "<script>window.location='index.php?success=true';</script>";
+        //header("Location:./index.php?success=true");
         die();
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;

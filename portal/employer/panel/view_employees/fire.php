@@ -53,9 +53,11 @@
 
     //returning success/failure message
     if($success) {
-        header('Location:index.php?firesuccess=1');
+        echo "<script>window.location='index.php?firesuccess=1';</script>";
+        //header('Location:index.php?firesuccess=1');
     } else {
-        header('Location:index.php?firesuccess=1');
+        echo "<script>window.location='index.php?firesuccess=0';</script>";
+        //header('Location:index.php?firesuccess=1');
     }
     mysqli_close($conn);
 

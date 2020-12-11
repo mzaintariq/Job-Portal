@@ -12,6 +12,7 @@
     $job_id = $_POST['job_id'];
     $emp_id = $_SESSION['user'];
     $app_id = $_POST['app_id'];
+    
 ?>
 
 <?php
@@ -23,7 +24,7 @@
     $result=$conn->query($sql0);
     $row=$result->fetch_assoc();
     if($row['js_id']!=NULL) {
-        header("Location:./apps.php?success=false&hired=true&job_id=" . $job_id);
+        echo "<script>window.location='./apps.php?success=false&hired=true&job_id=" . $job_id . "';</script>";
         die('You already hired someone for this job. Fire that employee first.');
     }
 
@@ -52,7 +53,8 @@
 
     if ($success) {
         echo "New record created successfully";
-        header("Location:./apps.php?success=1&job_id=" . $job_id);
+        echo "<script>window.location='./apps.php?success=1&job_id=" . $job_id . "';</script>";
+        //header("Location:./apps.php?success=1&job_id=" . $job_id);
         die();
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;

@@ -29,10 +29,10 @@
         $sql .= " WHERE `emp_id`=" . $_SESSION['user'];
 
         if ($conn->query($sql)) {
-            header('Location:index.php?success=1');
+            echo "<script>window.location='index.php?success=1'</script>";
             die();
         } else {
-            header('Location:index.php?failure=1');
+            echo "<script>window.location='index.php?failure=1'</script>";
             die();
         }
     }
