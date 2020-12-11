@@ -49,7 +49,7 @@
         <?php
             //reading notifications from database
             
-            $sqlNotif = "SELECT * FROM `notifications` WHERE js_id=" . $_SESSION['user'];
+            $sqlNotif = "SELECT * FROM `notifications` WHERE js_id=" . $_SESSION['user'] . " ORDER BY `notif_id` DESC";
             $result = mysqli_query($conn,$sqlNotif);
 
             if(!$result) {

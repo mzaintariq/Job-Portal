@@ -30,14 +30,7 @@ if($result==false) {
 }
 
 //updating jobs table
-$sql = "UPDATE `jobs` SET `js_id`=NULL WHERE `job_id`=$job_id";
-$result = mysqli_query($conn,$sql);
-if($result==false) {
-    $success=false;
-}
-
-//updating jobseeker's employment status
-$sql = "UPDATE `jobseekers` SET `employment_status`=0 WHERE `js_id`=$js_id";
+$sql = "UPDATE `jobs` SET `js_id`=NULL,`status`=0 WHERE `job_id`=$job_id";
 $result = mysqli_query($conn,$sql);
 if($result==false) {
     $success=false;
@@ -49,11 +42,26 @@ if(!mysqli_query($conn,$sql)) {
     $success=false;
 }
 
+//testing to see if jobseeker is still employed
+$sql = "SELECT count(*) as num FROM `employments` WHERE `job_id`=$job_id";
+$result=$conn->query($sql);
+$row=$result->fetch_assoc();
+if($row['num']==0) {
+    //updating jobseeker's employment status
+    $sql = "UPDATE `jobseekers` SET `employment_status`=0 WHERE `js_id`=$js_id";
+    $result = mysqli_query($conn,$sql);
+    if($result==false) {
+        $success=false;
+    }
+}
+
 //deleting the resignation request notification
 $sql = "DELETE FROM `notifications` WHERE `notif_id`=$notif_id";
 if(!mysqli_query($conn,$sql)) {
     $success=false;
 }
+
+
 
 //sending notification to jobseeker
 $content = "Employer " . $name . " accepted your resignation for job \"" . $jobtitle . "\". You no longer are employed for that job.";

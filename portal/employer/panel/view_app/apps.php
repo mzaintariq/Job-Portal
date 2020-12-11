@@ -20,7 +20,7 @@
     } else if (isset($_GET['success']) && $_GET['success']!=1 && !isset($_GET['hired'])) {
         $error="<i class=\"fas fa-times-circle\"></i> Job invite could not be sent. Try again.";
         $errorClass='alert-danger';
-    } else {
+    } else if (isset($_GET['hired'])){
         $error="<i class=\"fas fa-times-circle\"></i> You have already hired someone on this job. Fire that employee first.";
         $errorClass='alert-warning';
     }
