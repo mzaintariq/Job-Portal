@@ -32,7 +32,7 @@ $success=true;
 //this variable will remain true to the end, unless an error occurs
 
 //updating jobs table
-$sql = "UPDATE `jobs` SET `js_id`=$js_id WHERE `job_id`=$job_id";
+$sql = "UPDATE `jobs` SET `js_id`=$js_id AND `status`=0 WHERE `job_id`=$job_id";
 $result = mysqli_query($conn,$sql);
 if($result==false) {
     $success=false;

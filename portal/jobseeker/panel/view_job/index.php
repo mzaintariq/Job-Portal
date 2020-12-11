@@ -118,7 +118,7 @@
         <?php echo $error; ?>   <!--display the error message that came after user applied for job-->
     </div>
 
-
+    <button type='button' class='btn btn-info' onClick='window.location="../index.php"'>Back</button>
     <!--SORTING-->
     <form name='form1' class='form-inline' action='index.php' method='get'>
             <label for='sortBy'>Sort By: </label>

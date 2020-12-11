@@ -22,10 +22,12 @@ require('../../js_verify.php');
 
         if($result) {
             echo "Successfully Applied For Job";
-            header('Location:index.php?apply=success'); //return success message through URL
+            echo "<script>window.location='index.php?apply=success';</script>";
+            //header('Location:index.php?apply=success'); //return success message through URL
         } else {
             echo "Failed to apply.";
-            header('Location:index.php?apply=failed');  //return failure message through URL
+            echo "<script>window.location='index.php?apply=failed';</script>";
+            //header('Location:index.php?apply=failed');  //return failure message through URL
         }
 
 ?>

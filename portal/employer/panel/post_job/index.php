@@ -37,7 +37,7 @@
             $error="New record created successfully";
             $errorVisibility='block';
             $errorClass='success';
-        } else {
+        } else if (isset($_GET['success'] && $_GET['success']==false)) {
             $error="New record not added.";
             $errorVisibility='block';
             $errorClass='danger';

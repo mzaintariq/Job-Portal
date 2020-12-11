@@ -66,7 +66,7 @@
       $_GET['page']=1;
   $upperLimit = $_GET['page']*20;
   //we will display 20 employers per page
-  $sql = "SELECT * FROM `jobs` WHERE emp_id = '". $_SESSION["user"]."'";
+  $sql = "SELECT * FROM `jobs` WHERE `emp_id` = ". $_SESSION["user"]." ORDER BY `job_id` DESC";
   $result = mysqli_query($conn,$sql);
   if($result==false) {
       echo "<div class='card bg-danger text-white'>

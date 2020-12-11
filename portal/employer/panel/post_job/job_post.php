@@ -35,6 +35,7 @@
         die();
     } else {
         echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "<script>window.location='index.php?success=false';</script>";
     }
 
     $conn->close();
