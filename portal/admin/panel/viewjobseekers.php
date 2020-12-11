@@ -1,3 +1,10 @@
+<?php
+
+require('../admin_verify.php');
+require('../../connect.php');
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,8 +29,7 @@
 <small>The rows shown in red are jobseekers that are blocked.</small>
 <?php
 
-require('../admin_verify.php');
-require('../../connect.php');
+
 
 $sql = "SELECT count(*) AS cnt FROM `jobseekers` WHERE 1";
 $result = $conn->query($sql);
@@ -117,7 +123,7 @@ $sql = "SELECT * FROM `jobseekers` WHERE 1 ORDER BY `js_id` ASC LIMIT " . $lower
 </div>
 
 <ul class="pagination">
-  
+<li class="page-item"><a class="page-link" href="index.php">Back</a></li>
   <li class="page-item"><a class="page-link" href="viewjobseekers.php?page=<?php if($upperLimit>20) echo $upperLimit-20; else echo 20;?>">Previous 20 Rows</a></li>
   
   <?php if ($totalRows>20) { ?>
