@@ -29,7 +29,8 @@
                         //let him move on to the password checking phase
                     } else {
                         //he can't try to log in right now
-                        header('Location:login.php?invalidcredentials=1&remaining_attempts=0');
+                        echo "<script>window.location='login.php?invalidcredentials=1&remaining_attempts=0';</script>";
+                        //header('Location:login.php?invalidcredentials=1&remaining_attempts=0');
                         die();
                     }
                 }
@@ -59,21 +60,24 @@
                             $sql5 = "UPDATE `login_attempts_log` SET `attempt_no`=$temp, `last_attempt`=NOW() WHERE `js_id`=" . $row2['js_id'];
                             if(mysqli_query($conn,$sql5)) {
                                 $temp=4-($row0['attempt_no']+1);
-                                header('Location:login.php?invalidcredentials=1&remaining_attempts=' . $temp);
+                                echo "<script>window.location='login.php?invalidcredentials=1&remaining_attempts=" . $temp . "';</script>";
+                                //header('Location:login.php?invalidcredentials=1&remaining_attempts=' . $temp);
                                 die();
                             } else {
                                 echo "Query 5 failed.";
                             }
                         } else {
                             //he has already exhausted his 4 attempts
-                            header('Location:login.php?invalidcredentials=1&remaining_attempts=0');
+                            echo "<script>window.location='login.php?invalidcredentials=1&remaining_attempts=0';</script>";
+                            //header('Location:login.php?invalidcredentials=1&remaining_attempts=0');
                             die();
                         }
                     } else {
                         //set attempts to 0 as he waited 30 minutes to try again
                         $sql6 = "UPDATE `login_attempts_log` SET `attempt_no`=0, `last_attempt`=NOW() WHERE `js_id`=" . $row2['js_id'] . " ORDER BY `js_id` DESC LIMIT 0,1";
                         if(mysqli_query($conn,$sql6)) {
-                            header('Location:login.php?invalidcredentials=1&remaining_attempts=4');
+                            echo "<script>window.location='login.php?invalidcredentials=1&remaining_attempts=4';</script>";
+                            //header('Location:login.php?invalidcredentials=1&remaining_attempts=4');
                             die();
                         }
                     }
@@ -104,13 +108,15 @@
             $row=mysqli_fetch_assoc($result);
 
             if($row['blocked']==1) {
-                header('Location:login.php?blocked=1');
+                echo "<script>window.location='login.php?blocked=1';</script>";
+                //header('Location:login.php?blocked=1');
                 die();
             } else {
                 session_start();
                 $_SESSION['user']=$id;
                 $_SESSION['type']='jobseeker';
-                header('Location:./panel');
+                echo "<script>window.location='./panel';</script>";
+                //header('Location:./panel');
             }
 
         }

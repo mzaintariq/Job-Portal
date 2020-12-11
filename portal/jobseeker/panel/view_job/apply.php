@@ -36,7 +36,8 @@
             $error="New record created successfully";
         }
         if(!isset($_GET['title']) || !isset($_GET['questions']) || !isset($_GET['job_id'])) {
-            header('Location:index.php');
+            echo "<script>window.location='index.php';</script>";
+            //header('Location:index.php');
             die();
         }
     ?>

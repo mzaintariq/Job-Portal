@@ -16,13 +16,16 @@ $password2 = $_POST['password2'];
 
 if($password!=$password2) {
   //throw error
-  header("Location:index.php?passwordmismatch=1");
+  echo "<script>window.location='index.php?passwordmismatch=1';</script>";
+  //header("Location:index.php?passwordmismatch=1");
   die();
 } else if ($gender==-1) {
-  header("Location:index.php?genderEmpty=1");
+  echo "<script>window.location='index.php?genderEmpty=1';</script>";
+  //header("Location:index.php?genderEmpty=1");
 } else if ($firstname=='' || $lastname=='' || $email=='' || $address=='' || $password=='') {
-  header("Location:index.php?emptyfields=1");
-  die();
+    echo "<script>window.location='index.php?emptyfields=1';</script>";
+    //header("Location:index.php?emptyfields=1");
+    die();
 } else {
 
     //connecting to database
@@ -34,7 +37,8 @@ if($password!=$password2) {
     $row=mysqli_fetch_assoc($result);
 
       if($row['numEmployees']>0) {
-        header("Location:index.php?emailexists=1");
+        echo "<script>window.location='index.php?emailexists=1';</script>";
+        //header("Location:index.php?emailexists=1");
         die();
       } 
       
@@ -60,7 +64,8 @@ if($password!=$password2) {
                   $_SESSION['type']='jobseeker';
               }
 
-              header("Location:./panel/index.php");
+              echo "<script>window.location='./panel/index.php';</script>";
+              //header("Location:./panel/index.php");
               die();
           } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
